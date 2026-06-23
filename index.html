@@ -1228,6 +1228,128 @@ section {
 }
 .szg-grid-item.revealed .tap-hint { opacity: 0; }
 
+.szg-grid-item::after {
+  content: 'VIEW';
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  z-index: 2;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--accent-szg);
+  background: rgba(6,9,6,0.72);
+  border: 1px solid rgba(170,255,71,0.28);
+  padding: 5px 7px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.35s, transform 0.35s;
+  pointer-events: none;
+}
+.szg-grid-item:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+.szg-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  background: rgba(0,0,0,0.86);
+  backdrop-filter: blur(14px);
+}
+.szg-lightbox.open { display: flex; }
+.szg-lightbox-panel {
+  width: min(1120px, 100%);
+  max-height: min(780px, calc(100vh - 56px));
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+  border: 1px solid rgba(170,255,71,0.24);
+  background: #050605;
+  overflow: hidden;
+}
+.szg-lightbox-media { position: relative; min-height: 520px; background: #090b08; }
+.szg-lightbox-media img,
+.szg-lightbox-media video { width: 100%; height: 100%; object-fit: contain; display: block; }
+.szg-lightbox-placeholder {
+  height: 100%;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.7;
+  letter-spacing: 0.08em;
+  color: rgba(170,255,71,0.42);
+}
+.szg-lightbox-info { padding: 32px; border-left: 1px solid rgba(170,255,71,0.16); overflow-y: auto; }
+.szg-lightbox-kicker {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--accent-szg);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.szg-lightbox-title {
+  font-family: var(--serif);
+  font-size: 34px;
+  line-height: 1.08;
+  color: var(--off-white);
+  margin-bottom: 18px;
+}
+.szg-lightbox-desc {
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(240,237,230,0.72);
+  margin-bottom: 20px;
+}
+.szg-lightbox-role {
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.7;
+  letter-spacing: 0.08em;
+  color: rgba(240,237,230,0.5);
+  text-transform: uppercase;
+}
+.szg-lightbox-controls {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+  padding: 16px;
+}
+.szg-lightbox-arrow,
+.szg-lightbox-close {
+  border: 1px solid rgba(170,255,71,0.35);
+  background: rgba(6,9,6,0.72);
+  color: var(--accent-szg);
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+.szg-lightbox-arrow { width: 42px; height: 42px; pointer-events: auto; font-size: 28px; }
+.szg-lightbox-close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 34px; height: 34px; font-size: 20px; }
+.szg-lightbox-arrow:hover,
+.szg-lightbox-close:hover { background: var(--accent-szg); color: #050605; }
+.szg-lightbox-count {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: rgba(240,237,230,0.58);
+  background: rgba(0,0,0,0.5);
+  padding: 6px 8px;
+}
+
 /* Tags */
 .tag-list {
   display: flex;
@@ -1926,6 +2048,24 @@ section {
   line-height: 1.7;
   color: rgba(240,237,230,0.45);
 }
+.client-result-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 18px;
+  padding: 9px 11px;
+  border: 1px solid rgba(200,200,200,0.22);
+  color: rgba(240,237,230,0.78);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: border-color 0.3s, color 0.3s;
+}
+.client-result-link:hover {
+  border-color: rgba(170,255,71,0.58);
+  color: #AAFF47;
+}
 
 /* hover reveal overlay */
 .client-card-hover {
@@ -2448,6 +2588,48 @@ section {
   padding-top: 16px;
   display: block;
 }
+.personal-card-link {
+  display: inline-flex;
+  margin-top: 14px;
+  color: rgba(240,237,230,0.58);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.personal-card-link:hover { color: #AAFF47; }
+.personal-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 16px;
+}
+.personal-metrics.three { grid-template-columns: repeat(3, 1fr); }
+/* TTC pinterest data-viz sparkline */
+.ttc-spark { margin-top: 14px; border: 1px solid rgba(240,237,230,0.1); padding: 14px; }
+.ttc-spark-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,230,0.45); margin-bottom: 10px; }
+.ttc-spark svg { width: 100%; height: auto; display: block; }
+.ttc-spark-foot { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; color: rgba(240,237,230,0.3); margin-top: 6px; }
+.personal-metric {
+  border: 1px solid rgba(240,237,230,0.1);
+  padding: 10px;
+  min-height: 62px;
+}
+.personal-metric strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--off-white);
+}
+.personal-metric span {
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  color: rgba(240,237,230,0.45);
+  text-transform: uppercase;
+}
 
 .personal-card.is-placeholder {
   opacity: 0.58;
@@ -2609,6 +2791,11 @@ section {
   #contact { padding: 60px 24px; }
   .szg-seasons { grid-template-columns: 1fr; }
   .szg-grid { grid-template-columns: 1fr 1fr; }
+  .szg-lightbox { padding: 14px; }
+  .szg-lightbox-panel { grid-template-columns: 1fr; max-height: calc(100vh - 28px); }
+  .szg-lightbox-media, .szg-lightbox-placeholder { min-height: 340px; }
+  .szg-lightbox-info { border-left: 0; border-top: 1px solid rgba(170,255,71,0.16); padding: 24px; }
+  .szg-lightbox-title { font-size: 27px; }
   .mael-releases { grid-template-columns: 1fr; }
   .timeline::before { left: 80px; }
   .timeline-item { grid-template-columns: 80px 1fr; gap: 24px; }
@@ -3006,61 +3193,103 @@ section {
     </div>
 
     <!-- Photo grid -->
-    <p class="section-label" style="color:rgba(170,255,71,0.3);margin:0 0 14px;font-size: 13px;">↓ 사진을 클릭해 설명 보기</p>
+    <p class="section-label" style="color:rgba(170,255,71,0.3);margin:0 0 14px;font-size: 13px;">↓ 프로젝트를 클릭해 사진·영상 아카이브 보기</p>
     <div class="szg-grid section-fade">
       <div class="szg-grid-item"
-        data-cap-title="404 Not Found"
-        data-cap-desc="메인 전시 포스터 / 키 비주얼">
+        data-cap-title="404 Not Found: Limbo.com"
+        data-cap-desc="공모 릴스 · 이벤트 포스터 영상 · 행사 사진"
+        data-gallery-role="Call for submission reels, event poster video, post-event photo archive"
+        data-gallery-assets="video:assets/video/szg/01-limbo-call-for-submission-reel.mp4:Call for submission reel|video:assets/video/szg/01-limbo-event-poster-video.mp4:Event poster video|image:assets/img/szg/01-limbo-post-event-01.jpg:Post-event photo 01|image:assets/img/szg/01-limbo-post-event-02.jpg:Post-event photo 02">
         <img src="assets/img/szg/grid-01.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">01</div>
       </div>
       <div class="szg-grid-item"
-        data-cap-title="Opening Cypher"
-        data-cap-desc="오프닝 사이퍼 / 라이브 퍼포먼스">
+        data-cap-title="Cyphverse"
+        data-cap-desc="U of T Hart House Hip Hop ED × Plethora 협업 현장"
+        data-gallery-role="Collaboration operation, live set documentation, event scene archive"
+        data-gallery-assets="video:assets/video/szg/02-cyphverse-live-set-01.mp4:Live set video 01|video:assets/video/szg/02-cyphverse-live-set-02.mp4:Live set video 02|image:assets/img/szg/02-cyphverse-scene-01.jpg:Event scene 01|image:assets/img/szg/02-cyphverse-scene-02.jpg:Event scene 02">
         <img src="assets/img/szg/grid-02.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">02</div>
       </div>
       <div class="szg-grid-item"
-        data-cap-title="Glyph Verse"
-        data-cap-desc="그래피티 / 힙합 zine 전시">
+        data-cap-title="Cyphverse"
+        data-cap-desc="포스터 · 큐레이션 이미지 · 그래픽 아카이브"
+        data-gallery-role="Poster direction, curation image selection, visual documentation"
+        data-gallery-assets="image:assets/img/szg/03-cyphverse-poster.jpg:Poster|image:assets/img/szg/03-cyphverse-curation-01.jpg:Curation photo 01|image:assets/img/szg/03-cyphverse-curation-02.jpg:Curation photo 02">
         <img src="assets/img/szg/grid-03.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">03</div>
       </div>
       <div class="szg-grid-item"
-        data-cap-title="Call for Submission"
-        data-cap-desc="아티스트 공모 / 큐레이션">
+        data-cap-title="404 Not Found: Clone, Real or Fake?"
+        data-cap-desc="리캡 콜라주 · 현장 사진 · 영상 아카이브"
+        data-gallery-role="Recap collage archive, photo/video documentation, post-event storytelling"
+        data-gallery-assets="image:assets/img/szg/04-clone-recap-01.jpg:Recap collage 01|image:assets/img/szg/04-clone-recap-02.jpg:Recap collage 02|video:assets/video/szg/04-clone-recap-video-01.mp4:Recap video 01|video:assets/video/szg/04-clone-recap-video-02.mp4:Recap video 02">
         <img src="assets/img/szg/grid-04.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">04</div>
       </div>
       <div class="szg-grid-item"
-        data-cap-title="Live Set"
-        data-cap-desc="모듈러 신스 라이브 셋">
+        data-cap-title="404 Not Found: Clone, Real or Fake?"
+        data-cap-desc="공모 포스터 시리즈 · 참여 아티스트 모집 자료"
+        data-gallery-role="Call for submission poster series, open call communication"
+        data-gallery-assets="image:assets/img/szg/05-clone-call-poster-01.jpg:Call poster 01|image:assets/img/szg/05-clone-call-poster-02.jpg:Call poster 02|image:assets/img/szg/05-clone-call-poster-03.jpg:Call poster 03">
         <img src="assets/img/szg/grid-05.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">05</div>
       </div>
       <div class="szg-grid-item"
-        data-cap-title="Exhibition Floor"
-        data-cap-desc="전시 공간 / 인터랙티브 설치">
+        data-cap-title="404 Not Found: Clone, Real or Fake?"
+        data-cap-desc="라이브 셋 현장 영상 · 공연 기록"
+        data-gallery-role="Live set video archive, performance documentation"
+        data-gallery-assets="video:assets/video/szg/06-clone-live-set-01.mp4:Live set 01|video:assets/video/szg/06-clone-live-set-02.mp4:Live set 02|video:assets/video/szg/06-clone-live-set-03.mp4:Live set 03">
         <img src="assets/img/szg/grid-06.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">06</div>
       </div>
       <div class="szg-grid-item"
-        data-cap-title="Audience"
-        data-cap-desc="1,000+ 관객 / 오프닝 파티">
+        data-cap-title="Teea Shop Series"
+        data-cap-desc="현장 영상 · 이벤트 사진 · 커뮤니티 프로그램"
+        data-gallery-role="Event documentation, scene photography, video archive"
+        data-gallery-assets="video:assets/video/szg/07-teea-shop-video-01.mp4:Teea Shop video 01|image:assets/img/szg/07-teea-shop-scene-01.jpg:Scene photo 01|image:assets/img/szg/07-teea-shop-scene-02.jpg:Scene photo 02">
         <img src="assets/img/szg/grid-07.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">07</div>
       </div>
       <div class="szg-grid-item"
-        data-cap-title="Clone, Real or Fake?"
-        data-cap-desc="시즌 02 / 메인 비주얼">
+        data-cap-title="Teea Shop Series"
+        data-cap-desc="포스터 · 공모 이미지 · 프로그램 홍보 자료"
+        data-gallery-role="Poster archive, call for submission visuals, promotional assets"
+        data-gallery-assets="image:assets/img/szg/08-teea-shop-poster-01.jpg:Poster 01|image:assets/img/szg/08-teea-shop-call-01.jpg:Call for submission 01|image:assets/img/szg/08-teea-shop-call-02.jpg:Call for submission 02">
         <img src="assets/img/szg/grid-08.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">08</div>
       </div>
       <div class="szg-grid-item"
-        data-cap-title="Behind the Scenes"
-        data-cap-desc="셋업 / 베뉴 운영">
+        data-cap-title="One of Won"
+        data-cap-desc="라이브셋 · 리스닝룸 · 팝업 현장"
+        data-gallery-role="Live set and listening room documentation, pop-up scene archive"
+        data-gallery-assets="video:assets/video/szg/09-one-of-won-live-set.mp4:Live set|image:assets/img/szg/09-one-of-won-listening-room-01.jpg:Listening room 01|image:assets/img/szg/09-one-of-won-popup-01.jpg:Pop-up photo 01">
         <img src="assets/img/szg/grid-09.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">09</div>
+      </div>
+      <div class="szg-grid-item"
+        data-cap-title="zero zero film × stalefish gallery × SZG"
+        data-cap-desc="영화제 상영회 협업 · 갤러리 섹션 큐레이션 후기 영상"
+        data-gallery-role="Cafe space collaboration, gallery section curation, recap video archive"
+        data-gallery-assets="video:assets/video/szg/10-zero-zero-recap-01.mp4:Recap video 01|video:assets/video/szg/10-zero-zero-recap-02.mp4:Recap video 02|image:assets/img/szg/10-zero-zero-gallery-01.jpg:Gallery section 01">
+        <img src="assets/img/szg/grid-10.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">10</div>
+      </div>
+      <div class="szg-grid-item"
+        data-cap-title="zero zero film × stalefish gallery × SZG"
+        data-cap-desc="작품 공모 · 포스터 · 참여자 모집 자료"
+        data-gallery-role="Call for submission communication, poster archive, artist outreach assets"
+        data-gallery-assets="image:assets/img/szg/11-zero-zero-call-01.jpg:Call for submission 01|image:assets/img/szg/11-zero-zero-poster-01.jpg:Poster 01|image:assets/img/szg/11-zero-zero-poster-02.jpg:Poster 02">
+        <img src="assets/img/szg/grid-11.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">11</div>
+      </div>
+      <div class="szg-grid-item"
+        data-cap-title="404 Not Found: Light Shadow Construction and Deconstruction"
+        data-cap-desc="첫 404 이벤트 · 캠퍼스와 베뉴 기반 전시"
+        data-gallery-role="First 404 event archive, campus/venue documentation, exhibition setup"
+        data-gallery-assets="image:assets/img/szg/12-light-shadow-campus-01.jpg:Campus photo 01|image:assets/img/szg/12-light-shadow-venue-01.jpg:Venue photo 01|video:assets/video/szg/12-light-shadow-event-01.mp4:Event video 01">
+        <img src="assets/img/szg/grid-12.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">12</div>
       </div>
     </div>
 
@@ -3463,6 +3692,7 @@ section {
           <div class="client-card-name">Holt Renfrew × Andras</div>
           <div class="client-card-role">Production Assistant, Art Team</div>
           <div class="client-card-desc">Holt Renfrew × Andras 프로덕션에서 아트팀 어시스턴트로 참여했습니다. 현장 세팅, 소품 및 아트 요소 정리, 촬영 진행을 지원했습니다.</div>
+          <a class="client-result-link" href="https://www.holtrenfrew.com/en/stories/summer-2024-what-do-you-wear-sesason-3-episode-2" target="_blank" rel="noopener noreferrer">결과물 보기 ↗</a>
         </div>
       </div>
 
@@ -3488,55 +3718,97 @@ section {
 
     <div class="personal-grid section-fade">
 
-      <!-- 카드 1: 자유롭게 채워주세요 -->
-      <div class="personal-card is-placeholder">
+      <div class="personal-card">
         <div class="personal-card-media">
-          <img src="assets/img/personal/personal-01.jpg" alt=""
+          <img src="assets/img/personal/short-film-01.jpg" alt="Short film 01"
             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="img-placeholder" style="display:none;background:#111;">개인 프로젝트 01</div>
+          <div class="img-placeholder" style="display:none;background:#111;">short-film-01.jpg</div>
         </div>
         <div class="personal-card-body">
-          <span class="personal-card-category">개인 작업</span>
-          <div class="personal-card-title">Archive 01</div>
-          <div class="personal-card-desc">이미지와 설명을 업데이트할 개인 프로젝트 슬롯입니다.</div>
+          <span class="personal-card-category">Short Film</span>
+          <div class="personal-card-title">단편 영상 제작 01</div>
+          <div class="personal-card-desc">개인 단편 영상 작업의 콘셉트, 촬영, 편집 자료를 정리하는 슬롯입니다. 영상 파일은 assets/video/personal/short-film-01.mp4로 연결됩니다.</div>
+          <a class="personal-card-link" href="assets/video/personal/short-film-01.mp4" target="_blank" rel="noopener noreferrer">영상 파일 자리 ↗</a>
           <span class="personal-card-year">2025</span>
         </div>
       </div>
 
-      <!-- 카드 2 -->
-      <div class="personal-card is-placeholder">
+      <div class="personal-card">
         <div class="personal-card-media">
-          <img src="assets/img/personal/personal-02.jpg" alt=""
+          <img src="assets/img/personal/short-film-02.jpg" alt="Short film 02"
             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="img-placeholder" style="display:none;background:#111;">개인 프로젝트 02</div>
+          <div class="img-placeholder" style="display:none;background:#111;">short-film-02.jpg</div>
         </div>
         <div class="personal-card-body">
-          <span class="personal-card-category">개인 작업</span>
-          <div class="personal-card-title">Archive 02</div>
-          <div class="personal-card-desc">비주얼, 사운드, 리서치 등 개인 작업을 넣을 수 있는 자리입니다.</div>
+          <span class="personal-card-category">Short Film</span>
+          <div class="personal-card-title">단편 영상 제작 02</div>
+          <div class="personal-card-desc">촬영 이미지, 편집본, 스틸컷을 분리해 보여줄 수 있는 두 번째 단편 영상 카드입니다.</div>
+          <a class="personal-card-link" href="assets/video/personal/short-film-02.mp4" target="_blank" rel="noopener noreferrer">영상 파일 자리 ↗</a>
           <span class="personal-card-year">2025</span>
         </div>
       </div>
 
-      <!-- 카드 3 -->
-      <div class="personal-card is-placeholder">
+      <div class="personal-card">
         <div class="personal-card-media">
-          <img src="assets/img/personal/personal-03.jpg" alt=""
+          <img src="assets/img/personal/short-film-03.jpg" alt="Short film 03"
             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="img-placeholder" style="display:none;background:#111;">개인 프로젝트 03</div>
+          <div class="img-placeholder" style="display:none;background:#111;">short-film-03.jpg</div>
         </div>
         <div class="personal-card-body">
-          <span class="personal-card-category">개인 작업</span>
-          <div class="personal-card-title">Archive 03</div>
-          <div class="personal-card-desc">실제 작업명과 자료가 들어오기 전까지 낮은 대비로 표시됩니다.</div>
+          <span class="personal-card-category">Short Film</span>
+          <div class="personal-card-title">단편 영상 제작 03</div>
+          <div class="personal-card-desc">개인 영상 실험과 비주얼 톤을 보여주는 세 번째 슬롯입니다. 제목과 설명은 실제 작품명에 맞춰 교체하면 됩니다.</div>
+          <a class="personal-card-link" href="assets/video/personal/short-film-03.mp4" target="_blank" rel="noopener noreferrer">영상 파일 자리 ↗</a>
+          <span class="personal-card-year">2025</span>
+        </div>
+      </div>
+
+      <div class="personal-card">
+        <div class="personal-card-media">
+          <img src="assets/img/personal/ttc-romanticized-01.jpg" alt="TTC Romanticized"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;background:#111;">ttc-romanticized-01.jpg</div>
+        </div>
+        <div class="personal-card-body">
+          <span class="personal-card-category">Visual Research / Social Performance</span>
+          <div class="personal-card-title">TTC Romanticized</div>
+          <div class="personal-card-desc">되돌아온 90·00년대 미학을 일찍 읽고 직접 촬영·편집한 지하철 사진. Pinterest에서 바이럴되며 다수의 'Gen X Soft Club' 보드에 저장돼, 트렌드의 현대 레퍼런스로 확산됐습니다.</div>
+          <div class="personal-metrics three">
+            <div class="personal-metric"><strong>96.8K</strong><span>Impressions ↑60%</span></div>
+            <div class="personal-metric"><strong>2,004</strong><span>Pin clicks ↑71%</span></div>
+            <div class="personal-metric"><strong>1,021</strong><span>Saves ↑76%</span></div>
+          </div>
+          <div class="ttc-spark">
+            <div class="ttc-spark-label">30-Day Reach · 바이럴 스파이크</div>
+            <svg viewBox="0 0 300 64" preserveAspectRatio="none" aria-label="30일 노출 추이">
+              <polyline fill="none" stroke="rgba(170,255,71,0.55)" stroke-width="2"
+                points="0,52 18,50 36,48 54,44 72,10 90,22 108,34 126,38 144,40 162,38 180,36 198,34 216,37 234,33 252,35 270,38 288,42 300,46" />
+              <circle cx="72" cy="10" r="3" fill="#AAFF47" />
+            </svg>
+            <div class="ttc-spark-foot"><span>게시 직후</span><span>+30일</span></div>
+          </div>
+          <span class="personal-card-year">2024 · Pinterest</span>
+        </div>
+      </div>
+
+      <div class="personal-card">
+        <div class="personal-card-media">
+          <img src="assets/img/personal/acmsa-award.jpg" alt="ACMSA award project"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;background:#111;">acmsa-award.jpg</div>
+        </div>
+        <div class="personal-card-body">
+          <span class="personal-card-category">Awarded Project</span>
+          <div class="personal-card-title">ACMSA 대상 수상작</div>
+          <div class="personal-card-desc">ACMSA 대상 수상 프로젝트의 영상 결과물과 발표 자료를 함께 보여주는 섹션입니다. 작품 영상과 PT 파일을 연결해 창작 과정과 결과를 동시에 제시합니다.</div>
+          <a class="personal-card-link" href="assets/docs/personal/acmsa-presentation.pdf" target="_blank" rel="noopener noreferrer">PT 자료 자리 ↗</a>
           <span class="personal-card-year">2024</span>
         </div>
       </div>
 
-      <!-- + 추가 카드 슬롯 -->
       <div class="personal-card add-card">
         <div class="add-icon">+</div>
-        <span>프로젝트 추가</span>
+        <span>개인 작업 추가</span>
       </div>
 
     </div>
@@ -4333,8 +4605,120 @@ qsa('.szg-season').forEach(season => {
 });
 
 /* ═══════════════════════════════════════════
-   SZG — photo grid click-to-reveal caption
+   SZG — photo/video archive lightbox
 ═══════════════════════════════════════════ */
+let szgLightboxState = { assets: [], index: 0, title: '', desc: '', role: '' };
+
+function parseSzgAssets(raw) {
+  if (!raw) return [];
+  return raw.split('|').map(part => {
+    const pieces = part.split(':');
+    const type = pieces.shift() || 'image';
+    const src = pieces.shift() || '';
+    const label = pieces.join(':') || src;
+    return { type, src, label };
+  }).filter(asset => asset.src);
+}
+
+function ensureSzgLightbox() {
+  let box = qs('#szg-lightbox');
+  if (box) return box;
+  box = document.createElement('div');
+  box.id = 'szg-lightbox';
+  box.className = 'szg-lightbox';
+  box.innerHTML = `
+    <div class="szg-lightbox-panel" role="dialog" aria-modal="true" aria-label="SZG project archive">
+      <div class="szg-lightbox-media">
+        <button class="szg-lightbox-close" type="button" aria-label="닫기">×</button>
+        <div class="szg-lightbox-stage"></div>
+        <div class="szg-lightbox-controls">
+          <button class="szg-lightbox-arrow prev" type="button" aria-label="이전">‹</button>
+          <button class="szg-lightbox-arrow next" type="button" aria-label="다음">›</button>
+        </div>
+        <div class="szg-lightbox-count"></div>
+      </div>
+      <div class="szg-lightbox-info">
+        <div class="szg-lightbox-kicker">SZG Archive</div>
+        <div class="szg-lightbox-title"></div>
+        <div class="szg-lightbox-desc"></div>
+        <div class="szg-lightbox-role"></div>
+      </div>
+    </div>`;
+  document.body.appendChild(box);
+  box.addEventListener('click', e => { if (e.target === box) closeSzgLightbox(); });
+  box.querySelector('.szg-lightbox-close').addEventListener('click', closeSzgLightbox);
+  box.querySelector('.szg-lightbox-arrow.prev').addEventListener('click', () => moveSzgLightbox(-1));
+  box.querySelector('.szg-lightbox-arrow.next').addEventListener('click', () => moveSzgLightbox(1));
+  document.addEventListener('keydown', e => {
+    if (!box.classList.contains('open')) return;
+    if (e.key === 'Escape') closeSzgLightbox();
+    if (e.key === 'ArrowLeft') moveSzgLightbox(-1);
+    if (e.key === 'ArrowRight') moveSzgLightbox(1);
+  });
+  return box;
+}
+
+function renderSzgLightbox() {
+  const box = ensureSzgLightbox();
+  const asset = szgLightboxState.assets[szgLightboxState.index];
+  const stage = box.querySelector('.szg-lightbox-stage');
+  const title = box.querySelector('.szg-lightbox-title');
+  const desc = box.querySelector('.szg-lightbox-desc');
+  const role = box.querySelector('.szg-lightbox-role');
+  const count = box.querySelector('.szg-lightbox-count');
+  title.textContent = szgLightboxState.title;
+  desc.textContent = szgLightboxState.desc;
+  role.textContent = szgLightboxState.role;
+  count.textContent = `${szgLightboxState.index + 1} / ${szgLightboxState.assets.length}`;
+  if (!asset) {
+    stage.innerHTML = '<div class="szg-lightbox-placeholder">연결된 자료 파일을 기다리는 중입니다.</div>';
+    return;
+  }
+  const missing = `<div class="szg-lightbox-placeholder">${asset.label}<br>${asset.src}</div>`;
+  if (asset.type === 'video') {
+    stage.innerHTML = `<video controls playsinline src="${asset.src}"></video><div class="szg-lightbox-placeholder" style="display:none;">${asset.label}<br>${asset.src}</div>`;
+    const video = stage.querySelector('video');
+    video.addEventListener('error', () => {
+      video.style.display = 'none';
+      stage.querySelector('.szg-lightbox-placeholder').style.display = 'flex';
+    });
+  } else {
+    stage.innerHTML = `<img src="${asset.src}" alt="${asset.label}"><div class="szg-lightbox-placeholder" style="display:none;">${asset.label}<br>${asset.src}</div>`;
+    const img = stage.querySelector('img');
+    img.addEventListener('error', () => {
+      img.style.display = 'none';
+      stage.querySelector('.szg-lightbox-placeholder').style.display = 'flex';
+    });
+  }
+}
+
+function openSzgLightbox(item) {
+  szgLightboxState = {
+    assets: parseSzgAssets(item.dataset.galleryAssets),
+    index: 0,
+    title: item.dataset.capTitle || '',
+    desc: item.dataset.capDesc || '',
+    role: item.dataset.galleryRole || ''
+  };
+  ensureSzgLightbox().classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderSzgLightbox();
+}
+
+function closeSzgLightbox() {
+  const box = qs('#szg-lightbox');
+  if (!box) return;
+  box.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function moveSzgLightbox(delta) {
+  const total = szgLightboxState.assets.length;
+  if (!total) return;
+  szgLightboxState.index = (szgLightboxState.index + delta + total) % total;
+  renderSzgLightbox();
+}
+
 qsa('.szg-grid-item').forEach(item => {
   const title = item.dataset.capTitle;
   const desc  = item.dataset.capDesc;
@@ -4351,7 +4735,7 @@ qsa('.szg-grid-item').forEach(item => {
     item.appendChild(hint);
   }
   item.addEventListener('click', () => {
-    item.classList.toggle('revealed');
+    openSzgLightbox(item);
   });
 });
 
