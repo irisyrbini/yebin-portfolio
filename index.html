@@ -1,0 +1,4435 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yebin Song — Creative Portfolio</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ─── RESET & BASE ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0A0A0A;
+  --off-white: #F0EDE6;
+  --muted: rgba(240,237,230,0.45);
+  --accent-szg: #AAFF47;
+  --accent-mael: #D4A8A8;
+  --accent-path: #8B2E1A;
+  --accent-client: #C8C8C8;
+  --serif: 'Playfair Display', Georgia, serif;
+  --mono: 'Space Mono', monospace;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { scroll-behavior: smooth; cursor: none; font-size: 19px; }
+
+body {
+  background: var(--bg);
+  color: var(--off-white);
+  font-family: var(--serif);
+  overflow-x: hidden;
+  cursor: none;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* hide default cursor globally */
+*, *::before, *::after { cursor: none !important; }
+
+a { color: inherit; text-decoration: none; }
+img {
+  display: block;
+  width: 100%;
+  filter: saturate(0.85) sepia(0.1);
+  transition: filter 0.6s var(--ease-out);
+}
+img:hover { filter: saturate(0.95) sepia(0.05); }
+
+/* ─── TYPE CALIBRATION ──────────────────────────────────────── */
+.section-label,
+.about-section-label, .mael-section-label, .ps-section-label,
+.apb-section-label, .client-section-label, .add-section-label,
+.personal-section-label, .playlist-section-label,
+.szg-handle, .szg-collabs, .szg-funded,
+.szg-stat-label, .timeline-role-tag, .track-role, .track-year,
+.client-card-role, .value-card-header h4,
+.expand-trigger span, .contact-label,
+.skill-tag, .stat-label, .tag,
+#nav-links li a, #playlist-word,
+.apb-role, .ps-section-label,
+.release-title, .timeline-year,
+.szg-season-year, .planning-list li,
+.personal-card-category, .personal-card-year,
+.award-title, .mael-detail-label,
+.track-artist { font-size: 15px; }
+
+.szg-desc, .apb-desc,
+.client-card-desc, .value-card-body p,
+.timeline-desc, .playlist-desc,
+.ps-work-desc, .personal-card-desc,
+.mael-desc-text { font-size: 18px; line-height: 1.82; }
+
+.ps-work-title, .client-card-name,
+.timeline-org, .personal-card-title,
+.release-title { font-size: 18px; }
+
+.track-title { font-size: 18px; }
+
+/* ─── GRAIN OVERLAY ─────────────────────────────────────────── */
+/* layer 1 — base noise, slow drift */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  opacity: 0.09;
+  pointer-events: none;
+  z-index: 9999;
+  animation: grainDrift 7s steps(1) infinite;
+  mix-blend-mode: overlay;
+}
+/* layer 2 — finer grain, faster flicker, screen blend */
+body::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 128 128' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)'/%3E%3C/svg%3E");
+  background-size: 130px 130px;
+  opacity: 0.055;
+  pointer-events: none;
+  z-index: 9998;
+  animation: grainDrift2 4s steps(1) infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes grainDrift {
+  0%  { transform: translate(0, 0); }
+  10% { transform: translate(-3%, -4%); }
+  20% { transform: translate(4%, 2%); }
+  30% { transform: translate(-2%, 5%); }
+  40% { transform: translate(5%, -3%); }
+  50% { transform: translate(-4%, 4%); }
+  60% { transform: translate(3%, -5%); }
+  70% { transform: translate(-5%, 2%); }
+  80% { transform: translate(2%, 4%); }
+  90% { transform: translate(-3%, -2%); }
+  100%{ transform: translate(0, 0); }
+}
+@keyframes grainDrift2 {
+  0%  { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(3%, -3%) rotate(0.5deg); }
+  50% { transform: translate(-4%, 2%) rotate(-0.3deg); }
+  75% { transform: translate(2%, 4%) rotate(0.4deg); }
+  100%{ transform: translate(0, 0) rotate(0deg); }
+}
+
+/* ─── CUSTOM CURSOR ─────────────────────────────────────────── */
+#cursor-dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: var(--off-white);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+  mix-blend-mode: difference;
+}
+
+#cursor-ring {
+  position: fixed;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(240,237,230,0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s var(--ease-out), height 0.3s var(--ease-out), border-color 0.3s;
+  mix-blend-mode: difference;
+}
+
+#cursor-crosshair {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99997;
+  transform: translate(-50%, -50%);
+  opacity: 0.4;
+}
+#cursor-crosshair::before,
+#cursor-crosshair::after {
+  content: '';
+  position: absolute;
+  background: var(--off-white);
+}
+#cursor-crosshair::before {
+  width: 1px;
+  height: 14px;
+  left: 0;
+  top: -7px;
+}
+#cursor-crosshair::after {
+  width: 14px;
+  height: 1px;
+  left: -7px;
+  top: 0;
+}
+
+.cursor-trail {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background: var(--off-white);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99996;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  opacity: 0;
+}
+
+body.cursor-hover #cursor-ring {
+  width: 54px;
+  height: 54px;
+  border-color: rgba(240,237,230,0.9);
+}
+
+/* ─── PLAYLIST / AUDIO TOGGLE ──────────────────────────────── */
+#playlist-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 10000;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(240,237,230,0.18);
+  color: var(--off-white);
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 152px;
+  overflow: hidden;
+  opacity: 0.72;
+  transition: opacity 0.4s, border-color 0.4s, box-shadow 0.4s;
+}
+#playlist-btn:hover {
+  opacity: 1;
+  border-color: rgba(240,237,230,0.45);
+  box-shadow: 0 0 24px rgba(0,0,0,0.5);
+}
+
+/* top label row */
+#playlist-label-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px 8px;
+  border-bottom: 1px solid rgba(240,237,230,0.08);
+  cursor: pointer;
+}
+#playlist-word {
+  font-size: 12px;
+  letter-spacing: 0.26em;
+  opacity: 0.45;
+  margin-right: auto;
+}
+#playlist-expand-arrow {
+  font-size: 15px;
+  opacity: 0.4;
+  transition: transform 0.4s var(--ease-out), opacity 0.3s;
+  line-height: 1;
+}
+#playlist-label-row:hover #playlist-expand-arrow { opacity: 0.8; }
+#playlist-btn.expanded #playlist-expand-arrow { transform: rotate(180deg); }
+
+/* expandable now playing / up next */
+#playlist-expand {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s var(--ease-out);
+  border-bottom: 1px solid rgba(240,237,230,0.08);
+}
+#playlist-btn.expanded #playlist-expand { max-height: 320px; }
+.pl-now-block, .pl-next-block { padding: 12px 14px; }
+.pl-now-block { border-bottom: 1px solid rgba(240,237,230,0.05); }
+.pl-mini-label {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.35;
+  margin-bottom: 6px;
+}
+.pl-now-title {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-style: italic;
+  color: var(--off-white);
+  line-height: 1.3;
+}
+.pl-next-list { display: flex; flex-direction: column; gap: 6px; }
+.pl-next-item {
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity 0.3s, padding-left 0.3s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pl-next-item:hover { opacity: 1; padding-left: 4px; }
+.audio-icon {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 10px;
+}
+.audio-icon span {
+  display: block;
+  width: 2px;
+  background: var(--off-white);
+  border-radius: 1px;
+  animation: audioWave 1.2s ease-in-out infinite;
+}
+.audio-icon span:nth-child(1) { height: 3px; animation-delay: 0s; }
+.audio-icon span:nth-child(2) { height: 7px; animation-delay: 0.2s; }
+.audio-icon span:nth-child(3) { height: 10px; animation-delay: 0.1s; }
+.audio-icon span:nth-child(4) { height: 5px; animation-delay: 0.3s; }
+.audio-icon span:nth-child(5) { height: 8px; animation-delay: 0.15s; }
+#playlist-btn.muted .audio-icon span { animation-play-state: paused; opacity: 0.25; }
+
+/* Now Playing row */
+#playlist-now-row {
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(240,237,230,0.08);
+}
+#playlist-now-row .pl-mini-label { margin-bottom: 5px; }
+#playlist-track-name {
+  display: block;
+  font-family: var(--serif);
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.3;
+  color: var(--off-white);
+  white-space: nowrap;
+  overflow: hidden;
+}
+#playlist-track-name .track-marquee {
+  display: inline-block;
+  min-width: 100%;
+  padding-right: 26px;
+  will-change: transform;
+}
+#playlist-track-name.is-playing .track-marquee {
+  animation: playlistMarquee 12s linear infinite;
+}
+@keyframes playlistMarquee {
+  0%, 12% { transform: translateX(0); }
+  88%, 100% { transform: translateX(calc(-100% + 180px)); }
+}
+
+/* transport controls */
+#playlist-controls-row {
+  display: flex;
+  border-bottom: 1px solid rgba(240,237,230,0.08);
+}
+#playlist-controls-row button {
+  flex: 1;
+  padding: 10px 0;
+  background: transparent;
+  border: none;
+  border-right: 1px solid rgba(240,237,230,0.06);
+  color: var(--off-white);
+  font-size: 16px;
+  opacity: 0.55;
+  transition: opacity 0.3s, background 0.3s;
+}
+#playlist-controls-row button:last-child { border-right: none; }
+#playlist-controls-row button:hover { opacity: 1; background: rgba(240,237,230,0.06); }
+#yt-play-pause-btn { font-size: 17px !important; }
+
+/* sound on/off toggle row */
+#playlist-toggle-row {
+  display: flex;
+}
+#sound-on-btn, #sound-off-btn {
+  flex: 1;
+  padding: 9px 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  color: var(--off-white);
+  opacity: 0.35;
+  transition: opacity 0.3s, background 0.3s;
+  position: relative;
+}
+#sound-on-btn::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 20%; bottom: 20%;
+  width: 1px;
+  background: rgba(240,237,230,0.1);
+}
+#sound-on-btn:hover, #sound-off-btn:hover { opacity: 0.7; }
+#sound-on-btn.active  { opacity: 1; background: rgba(240,237,230,0.06); }
+#sound-off-btn.active { opacity: 1; background: rgba(240,237,230,0.06); }
+
+@keyframes audioWave {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+
+/* ─── NAVIGATION ──────────────────────────────────────────────── */
+#nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9000;
+  padding: 24px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 0.3;
+  transition: opacity 0.5s var(--ease-out);
+}
+#nav:hover,
+#nav.active { opacity: 1; }
+
+#nav-logo {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--off-white);
+  transition: opacity 0.4s;
+}
+#nav-logo:hover { opacity: 0.6; }
+
+#nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+#nav-links li a {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--off-white);
+  opacity: 0.6;
+  transition: opacity 0.4s;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+#nav-links li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  background: var(--off-white);
+  border-radius: 50%;
+  transition: width 0.4s, height 0.4s;
+}
+
+#nav-links li a.nav-active,
+#nav-links li a:hover { opacity: 1; }
+#nav-links li a.nav-active::after { width: 4px; height: 4px; }
+
+/* ─── SECTIONS (SHARED) ──────────────────────────────────────── */
+section {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.reveal-text .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.clip-reveal {
+  clip-path: inset(100% 0 0 0);
+}
+
+/* image placeholder when asset missing */
+.img-placeholder {
+  width: 100%;
+  aspect-ratio: 4/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  color: rgba(240,237,230,0.2);
+}
+
+/* ─── HERO ───────────────────────────────────────────────────── */
+#hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 40px;
+  background: var(--bg);
+}
+
+#hero-asterisk {
+  font-size: 40px;
+  opacity: 0.5;
+  margin-bottom: 24px;
+  display: block;
+  animation: asteriskSpin 20s linear infinite;
+}
+@keyframes asteriskSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+#hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(72px, 10vw, 140px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  margin-bottom: 28px;
+}
+
+#hero-subtitle {
+  font-family: var(--mono);
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 60px;
+  max-width: 520px;
+  line-height: 1.6;
+}
+
+/* TICKER */
+#ticker-wrap {
+  width: 100vw;
+  overflow: hidden;
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  border-top: 1px solid rgba(240,237,230,0.1);
+  border-bottom: 1px solid rgba(240,237,230,0.1);
+  padding: 12px 0;
+}
+
+#ticker {
+  display: flex;
+  gap: 0;
+  white-space: nowrap;
+  animation: tickerScroll 30s linear infinite;
+}
+
+#ticker span {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 40px;
+}
+
+#ticker span.sep {
+  opacity: 0.3;
+  padding: 0;
+}
+
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* SCROLL INDICATOR */
+#scroll-indicator {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.4;
+}
+#scroll-indicator .scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--off-white));
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+#scroll-indicator span {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+@keyframes scrollPulse {
+  0%, 100% { transform: scaleY(0.5); transform-origin: top; opacity: 0.4; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+/* ─── ABOUT ──────────────────────────────────────────────────── */
+#about {
+  padding: 96px 40px 88px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: auto;
+}
+
+#about-section-wrap {
+  padding: 48px 0;
+  background: var(--bg);
+}
+
+.about-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.about-left .profile-img-wrap {
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 1;
+  overflow: hidden;
+  position: relative;
+}
+.about-left .profile-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.about-left .profile-img-wrap .img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #1a1a1a;
+  aspect-ratio: 1;
+}
+
+.about-section-label {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.about-title {
+  font-family: var(--serif);
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+  line-height: 1.1;
+}
+
+/* Core value cards */
+.value-cards { display: flex; flex-direction: column; gap: 2px; margin-bottom: 28px; }
+
+.value-card {
+  border: 1px solid rgba(240,237,230,0.1);
+  background: rgba(240,237,230,0.015);
+  overflow: hidden;
+  transition: border-color 0.4s;
+}
+.value-card:hover { border-color: rgba(240,237,230,0.3); }
+
+.value-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  gap: 18px;
+  cursor: pointer;
+}
+
+.value-card-header h4 {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--off-white);
+}
+
+.value-card-toggle {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  opacity: 0.5;
+  flex-shrink: 0;
+  transition: transform 0.4s var(--ease-out), opacity 0.4s;
+}
+.value-card-toggle::before,
+.value-card-toggle::after {
+  content: '';
+  position: absolute;
+  background: var(--off-white);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.4s var(--ease-out), opacity 0.4s;
+}
+.value-card-toggle::before { width: 12px; height: 1px; }
+.value-card-toggle::after { width: 1px; height: 12px; }
+.value-card.open .value-card-toggle { opacity: 1; }
+.value-card.open .value-card-toggle::after { transform: translate(-50%, -50%) scaleY(0); opacity: 0; }
+
+.value-card-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s var(--ease-out);
+}
+.value-card.open .value-card-body { max-height: 160px; }
+
+.value-card-body p {
+  padding: 0 18px 18px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--muted);
+  font-family: var(--serif);
+}
+
+/* Skills */
+.skill-cloud { display: none; }
+.skillset-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: minmax(204px, auto);
+  gap: 10px;
+  margin-bottom: 0;
+  align-items: stretch;
+}
+.skillset-group {
+  border: 1px solid rgba(240,237,230,0.1);
+  background: rgba(240,237,230,0.018);
+  padding: 12px;
+  height: 100%;
+  min-height: 0;
+  overflow: visible;
+}
+.skillset-title {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(240,237,230,0.62);
+  margin-bottom: 9px;
+}
+.skillset-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.skill-tag {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(240,237,230,0.52);
+  border: 1px solid rgba(240,237,230,0.12);
+  padding: 4px 6px;
+  transition: color 0.4s, border-color 0.4s;
+}
+.skill-tag:hover {
+  color: rgba(240,237,230,0.8);
+  border-color: rgba(240,237,230,0.35);
+}
+
+.credential-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+  margin-top: 8px;
+  border-top: 1px solid rgba(240,237,230,0.14);
+  border-bottom: 1px solid rgba(240,237,230,0.14);
+}
+.credential-label,
+.credential-state {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.credential-label { color: var(--muted); }
+.credential-name { font-family: var(--serif); font-size: 18px; line-height: 1.45; }
+.credential-provider { display: block; margin-top: 3px; color: var(--muted); font-family: var(--mono); font-size: 12px; }
+.credential-state { color: var(--accent-mael); white-space: nowrap; }
+
+
+.profile-info-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.profile-info-card {
+  border: 1px solid rgba(240,237,230,0.1);
+  background: rgba(240,237,230,0.018);
+  padding: 18px;
+}
+.about-left .profile-info-grid {
+  width: 100%;
+  max-width: 420px;
+  grid-template-columns: 0.82fr 1.18fr;
+  grid-auto-rows: minmax(204px, auto);
+  gap: 10px;
+  margin-top: 14px;
+  margin-bottom: 0;
+}
+.about-left .profile-info-card {
+  padding: 14px;
+  height: 100%;
+}
+.about-left .stat-number {
+  font-size: clamp(26px, 2.7vw, 38px);
+  min-height: 38px;
+}
+.about-left .language-title {
+  margin-bottom: 10px;
+}
+.about-left .language-list {
+  gap: 7px;
+}
+.about-left .language-row {
+  grid-template-columns: 76px 1fr;
+  gap: 8px;
+}
+.about-left .language-name {
+  font-size: 14px;
+}
+.about-left .stars {
+  font-size: 15px;
+  letter-spacing: 0.1em;
+}
+.stats-row { display: contents; }
+.stat-item { display: flex; flex-direction: column; }
+.stat-number {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-height: 46px;
+}
+.stat-number .stat-dot {
+  font-size: 0.7em;
+  opacity: 0.4;
+  font-weight: 400;
+  margin: 0 1px;
+}
+.stat-label {
+  font-family: var(--mono);
+  font-size: 15px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 10px;
+  line-height: 1.4;
+}
+
+.stat-countries {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 7px;
+  margin-top: 14px;
+}
+.stat-countries span {
+  font-family: var(--mono);
+  font-size: 13.5px;
+  letter-spacing: 0.08em;
+  color: rgba(212,168,168,0.85);
+  border: 1px solid rgba(212,168,168,0.3);
+  padding: 5px 8px;
+  white-space: nowrap;
+}
+
+.language-card {}
+.language-title {
+  font-family: var(--mono);
+  font-size: 15px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.language-list {
+  display: grid;
+  gap: 10px;
+}
+.language-row {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  align-items: center;
+  gap: 14px;
+}
+.language-name {
+  font-family: var(--mono);
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  color: rgba(240,237,230,0.68);
+}
+.stars {
+  font-family: var(--mono);
+  font-size: 17px;
+  letter-spacing: 0.16em;
+  color: rgba(212,168,168,0.88);
+  white-space: nowrap;
+}
+.stars .empty { color: rgba(240,237,230,0.16); }
+
+/* Award */
+.award-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid rgba(240,237,230,0.2);
+  padding: 14px 20px;
+  max-width: 100%;
+}
+.award-glyph {
+  font-size: 20px;
+  opacity: 0.6;
+}
+.award-text {}
+.award-text .award-title {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.award-text .award-sub {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ─── SZG ────────────────────────────────────────────────────── */
+#szg {
+  padding: 100px 40px;
+  background: #060906;
+}
+
+.szg-inner { max-width: 1400px; margin: 0 auto; }
+
+.szg-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 80px;
+  gap: 40px;
+}
+
+.szg-handle {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-szg);
+  margin-bottom: 16px;
+}
+
+.szg-title {
+  font-family: var(--serif);
+  font-size: clamp(56px, 8vw, 110px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  color: var(--accent-szg);
+}
+
+.szg-desc-block { max-width: 500px; }
+.szg-desc {
+  font-size: 17px;
+  line-height: 1.85;
+  color: rgba(240,237,230,0.65);
+  margin-bottom: 24px;
+}
+
+/* Stats big */
+.szg-stats {
+  display: flex;
+  gap: 48px;
+  margin-bottom: 80px;
+  flex-wrap: wrap;
+}
+.szg-stat-item {}
+.szg-stat-number {
+  font-family: var(--serif);
+  font-size: clamp(48px, 6vw, 80px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--accent-szg);
+  line-height: 1;
+  display: block;
+}
+.szg-stat-label {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(170,255,71,0.5);
+  margin-top: 6px;
+}
+
+/* Seasons */
+.szg-seasons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 60px;
+  align-items: stretch;
+}
+.szg-season {
+  background: #0e120a;
+  padding: 24px;
+  border: 1px solid rgba(170,255,71,0.1);
+  transition: border-color 0.4s, background 0.4s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+.szg-season:hover {
+  border-color: rgba(170,255,71,0.35);
+  background: #111508;
+}
+.szg-season.open {
+  border-color: rgba(170,255,71,0.45);
+  background: #111508;
+}
+.szg-season-year {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  color: var(--accent-szg);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.szg-season-year .season-plus {
+  opacity: 0.5;
+  transition: transform 0.4s var(--ease-out);
+}
+.szg-season.open .season-plus { transform: rotate(45deg); }
+.szg-season-theme {
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--off-white);
+  min-height: 132px;
+}
+.szg-season-theme.blank { opacity: 0.45; font-style: italic; }
+
+/* season expandable detail */
+.szg-season-detail {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s var(--ease-out), margin-top 0.4s var(--ease-out);
+}
+.szg-season.open .szg-season-detail {
+  max-height: 460px;
+  margin-top: 16px;
+}
+.szg-season-desc {
+  font-size: 16px;
+  line-height: 1.8;
+  color: rgba(240,237,230,0.55);
+  margin-bottom: 14px;
+}
+.szg-season-photos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  margin-bottom: 14px;
+}
+.szg-season-photos .szg-mini-photo {
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #0a0d07;
+}
+.szg-season-photos img,
+.szg-season-photos .img-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.szg-season-photos .img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: rgba(170,255,71,0.25);
+}
+.szg-season-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-szg);
+  border: 1px solid rgba(170,255,71,0.35);
+  padding: 4px 10px;
+}
+
+/* season stats (카드 표면에 항상 노출) */
+.szg-season-stats { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 16px; }
+.ss-stat { display: flex; flex-direction: column; gap: 3px; }
+.ss-stat b { font-family: var(--serif); font-size: 24px; font-weight: 700; color: var(--accent-szg); line-height: 1; }
+.ss-stat span { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(240,237,230,0.45); }
+.szg-season-bep { margin-top: 14px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--accent-szg); }
+.szg-season-revenue { font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; color: rgba(240,237,230,0.4); margin-top: 5px; }
+.szg-season-more {
+  margin-top: 16px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: rgba(170,255,71,0.45); transition: color .3s;
+}
+.szg-season:hover .szg-season-more { color: rgba(170,255,71,0.8); }
+.szg-season.open .szg-season-more { color: rgba(170,255,71,0.8); }
+
+/* Image grid */
+.szg-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  margin-bottom: 40px;
+}
+.szg-grid-item {
+  aspect-ratio: 1;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+.szg-grid-item img, .szg-grid-item .img-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out), filter 0.6s;
+}
+.szg-grid-item:hover img {
+  transform: scale(1.04);
+  filter: saturate(1) sepia(0);
+}
+.szg-grid-item .img-placeholder {
+  background: #0e120a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  color: rgba(170,255,71,0.2);
+}
+/* click-to-reveal caption */
+.szg-grid-caption {
+  position: absolute;
+  inset: 0;
+  background: rgba(6,9,6,0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 18px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+  pointer-events: none;
+}
+.szg-grid-item.revealed .szg-grid-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+.szg-grid-caption .cap-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent-szg);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.szg-grid-caption .cap-desc {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  color: rgba(240,237,230,0.6);
+}
+.szg-grid-item .tap-hint {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: rgba(170,255,71,0.5);
+  border: 1px solid rgba(170,255,71,0.3);
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.szg-grid-item.revealed .tap-hint { opacity: 0; }
+
+/* Tags */
+.tag-list {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.tag {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border: 1px solid currentColor;
+  opacity: 0.5;
+  transition: opacity 0.4s;
+}
+.tag:hover { opacity: 0.9; }
+.tag.green { color: var(--accent-szg); }
+.tag.rose { color: var(--accent-mael); }
+.tag.rust { color: var(--accent-path); }
+.tag.grey { color: var(--accent-client); }
+
+.szg-collabs {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  color: rgba(170,255,71,0.45);
+  line-height: 2;
+}
+.szg-collabs strong {
+  color: rgba(170,255,71,0.7);
+  font-weight: 400;
+}
+.szg-funded {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: rgba(240,237,230,0.2);
+  margin-top: 8px;
+}
+
+/* ─── ARTIST PROJECTS ────────────────────────────────────────── */
+#artist-projects {}
+
+/* MAEL */
+#mael {
+  padding: 100px 40px;
+  background: #111009;
+}
+.mael-inner { max-width: 1400px; margin: 0 auto; }
+.mael-section-label {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(212,168,168,0.6);
+  margin-bottom: 16px;
+}
+.mael-title {
+  font-family: var(--serif);
+  font-size: clamp(56px, 8vw, 110px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  color: var(--accent-mael);
+  margin-bottom: 60px;
+}
+
+/* shared big "Artist Project" opener for mael / path seven / apb */
+.artist-opener-title {
+  font-family: var(--serif);
+  font-size: clamp(48px, 7vw, 100px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  color: var(--off-white);
+  margin-bottom: 18px;
+}
+.artist-opener-title .ao-num {
+  display: block;
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+.mael-releases {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 60px;
+}
+.release-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(212,168,168,0.1);
+  background: rgba(212,168,168,0.025);
+  padding: 12px;
+}
+.release-card-img {
+  aspect-ratio: 1;
+  overflow: hidden;
+  margin-bottom: 12px;
+  position: relative;
+}
+.release-card-img img, .release-card-img .img-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out);
+}
+.release-card:hover .release-card-img img { transform: scale(1.04); }
+.release-card-img .img-placeholder {
+  background: #1e1912;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: rgba(212,168,168,0.2);
+}
+.release-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-style: italic;
+  color: var(--off-white);
+  letter-spacing: -0.01em;
+}
+
+/* Expandable planning details */
+.expand-block {
+  border-top: 1px solid rgba(212,168,168,0.15);
+  margin-top: 40px;
+}
+.expand-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  cursor: pointer;
+  user-select: none;
+}
+.expand-trigger span {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(212,168,168,0.7);
+  transition: color 0.4s;
+}
+.expand-trigger:hover span { color: var(--accent-mael); }
+.expand-chevron {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  opacity: 0.5;
+  transition: transform 0.4s var(--ease-out);
+}
+.expand-chevron::before, .expand-chevron::after {
+  content: '';
+  position: absolute;
+  background: var(--accent-mael);
+  height: 1px;
+  width: 8px;
+  top: 50%;
+}
+.expand-chevron::before { left: 0; transform: rotate(45deg); transform-origin: right center; }
+.expand-chevron::after { right: 0; transform: rotate(-45deg); transform-origin: left center; }
+.expand-block.open .expand-chevron { transform: rotate(180deg); }
+
+.expand-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.7s var(--ease-out);
+}
+.expand-block.open .expand-content { max-height: 600px; }
+
+.planning-list {
+  list-style: none;
+  padding: 0 0 28px 0;
+}
+.planning-list li {
+  font-size: 16px;
+  line-height: 1.9;
+  color: rgba(240,237,230,0.55);
+  padding-left: 16px;
+  position: relative;
+}
+.planning-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--accent-mael);
+  opacity: 0.5;
+}
+
+/* mael deep-dive sections */
+.mael-deep-section {
+  margin-top: 18px;
+  padding: 28px;
+  border: 1px solid rgba(212,168,168,0.12);
+  background: rgba(212,168,168,0.025);
+}
+.mael-deep-header {
+  margin-bottom: 22px;
+}
+.mael-detail-label {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(212,168,168,0.45);
+  display: block;
+  margin-bottom: 10px;
+}
+.mael-deep-title {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3.5vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--accent-mael);
+  line-height: 1.1;
+}
+.mael-deep-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  gap: 36px;
+  align-items: start;
+}
+.mael-desc-text {
+  font-size: 18px;
+  line-height: 1.75;
+  color: rgba(240,237,230,0.62);
+  margin-bottom: 14px;
+}
+.mael-desc-text em {
+  font-style: italic;
+  color: rgba(212,168,168,0.8);
+}
+.mael-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+.mael-keywords span {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  color: rgba(212,168,168,0.6);
+  border: 1px solid rgba(212,168,168,0.2);
+  padding: 4px 10px;
+  transition: border-color 0.4s, color 0.4s;
+}
+.mael-keywords span:hover {
+  border-color: rgba(212,168,168,0.5);
+  color: var(--accent-mael);
+}
+.mael-deep-role-block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid rgba(212,168,168,0.1);
+  background: rgba(212,168,168,0.03);
+}
+.mael-media-block {
+  margin-top: 24px;
+}
+.mael-media-label {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(212,168,168,0.45);
+  margin-bottom: 10px;
+}
+.mael-media-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(212,168,168,0.12);
+  background: #18120f;
+}
+.mael-media-frame.ratio-16-9 { aspect-ratio: 16 / 9; }
+.mael-media-frame.ratio-3-4 { aspect-ratio: 3 / 4; }
+.mael-media-frame img,
+.mael-media-frame video,
+.mael-media-frame .img-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mael-media-frame video {
+  display: block;
+  filter: saturate(0.9) sepia(0.08);
+}
+.mael-media-frame .img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: rgba(212,168,168,0.25);
+  text-align: center;
+  padding: 18px;
+}
+.mael-media-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.mael-role-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.mael-role-key {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(212,168,168,0.4);
+}
+.mael-role-val {
+  font-family: var(--serif);
+  font-size: 17px;
+  color: rgba(240,237,230,0.65);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .mael-deep-body { grid-template-columns: 1fr; gap: 32px; }
+  .mael-media-grid { grid-template-columns: 1fr; }
+}
+
+/* PATH SEVEN */
+#pathseven {
+  padding: 100px 40px;
+  background: #0D0807;
+}
+.ps-inner { max-width: 1400px; margin: 0 auto; }
+.ps-section-label {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(139,46,26,0.7);
+  margin-bottom: 16px;
+}
+.ps-title {
+  font-family: var(--serif);
+  font-size: clamp(56px, 8vw, 110px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  color: var(--accent-path);
+  margin-bottom: 60px;
+}
+
+.ps-works {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+}
+.ps-work-item {
+  position: relative;
+  overflow: hidden;
+  background: #0f0a09;
+  border: 1px solid rgba(139,46,26,0.15);
+  transition: border-color 0.4s;
+  display: flex;
+  flex-direction: column;
+}
+.ps-work-item:hover { border-color: rgba(139,46,26,0.45); }
+.ps-work-img {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  position: relative;
+}
+.ps-work-img img, .ps-work-img .img-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out);
+}
+.ps-work-item:hover .ps-work-img img { transform: scale(1.04); }
+.ps-work-img .img-placeholder {
+  background: #140c0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: rgba(139,46,26,0.3);
+}
+.ps-work-body {
+  padding: 22px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.ps-work-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--off-white);
+  margin-bottom: 8px;
+}
+.ps-work-desc {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  line-height: 1.7;
+  color: rgba(240,237,230,0.4);
+}
+
+/* APB */
+#apb {
+  padding: 100px 40px;
+  background: #0a0a0a;
+}
+.apb-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  align-items: center;
+}
+.apb-section-label {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(200,200,200,0.5);
+  margin-bottom: 16px;
+}
+.apb-title {
+  font-family: var(--serif);
+  font-size: clamp(56px, 7vw, 90px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  color: var(--accent-client);
+  margin-bottom: 24px;
+}
+.apb-role {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(200,200,200,0.45);
+  margin-bottom: 16px;
+}
+.apb-desc {
+  font-size: 17px;
+  line-height: 1.9;
+  color: rgba(240,237,230,0.55);
+  max-width: 400px;
+}
+.apb-video-wrap {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: #111;
+}
+.apb-video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.85) sepia(0.1);
+}
+.apb-video-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  background: #0e0e0e;
+  border: 1px solid rgba(200,200,200,0.1);
+}
+.apb-video-placeholder span {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(200,200,200,0.25);
+}
+.apb-video-placeholder .play-icon {
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(200,200,200,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.apb-video-placeholder .play-icon::after {
+  content: '';
+  border-style: solid;
+  border-width: 6px 0 6px 10px;
+  border-color: transparent transparent transparent rgba(200,200,200,0.35);
+  margin-left: 3px;
+}
+
+/* ─── CLIENT WORK ────────────────────────────────────────────── */
+#client-work {
+  padding: 100px 40px;
+  background: #0a0a0a;
+}
+.client-inner { max-width: 1400px; margin: 0 auto; }
+.client-section-label {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(200,200,200,0.4);
+  margin-bottom: 16px;
+}
+.client-title {
+  font-family: var(--serif);
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--off-white);
+  margin-bottom: 60px;
+}
+
+.client-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+}
+
+.client-card {
+  position: relative;
+  overflow: hidden;
+  background: #0d0d0d;
+  border: 1px solid rgba(200,200,200,0.08);
+  transition: border-color 0.5s;
+  display: flex;
+  flex-direction: column;
+}
+.client-card:hover { border-color: rgba(200,200,200,0.25); }
+
+.client-card-img {
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  position: relative;
+}
+.client-card-img img, .client-card-img .img-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out), filter 0.5s;
+}
+.client-card:hover .client-card-img img {
+  transform: scale(1.04);
+  filter: saturate(0.95) sepia(0.05);
+}
+.client-card-img .img-placeholder {
+  background: #131313;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: rgba(200,200,200,0.15);
+}
+
+/* ── client photo slider ── */
+.client-slider {
+  position: relative;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+}
+.client-slides {
+  display: flex;
+  height: 100%;
+  transition: transform 0.6s var(--ease-out);
+}
+.client-slide {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+}
+.client-slide img, .client-slide .img-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.5s;
+}
+.client-slide .img-placeholder {
+  background: #131313;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: rgba(200,200,200,0.15);
+}
+.client-slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(10,10,10,0.7);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(240,237,230,0.25);
+  color: var(--off-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.4s, background 0.3s, border-color 0.3s;
+}
+.client-slider:hover .client-slider-arrow { opacity: 1; }
+.client-slider-arrow:hover {
+  background: rgba(10,10,10,0.92);
+  border-color: rgba(240,237,230,0.6);
+}
+.client-slider-arrow.prev { left: 12px; }
+.client-slider-arrow.next { right: 12px; }
+.client-slider-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 3;
+}
+.client-slider-dots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(240,237,230,0.3);
+  transition: background 0.3s, width 0.3s;
+  cursor: pointer;
+}
+.client-slider-dots .dot.active {
+  background: var(--off-white);
+  width: 16px;
+  border-radius: 3px;
+}
+.client-slide-count {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: rgba(240,237,230,0.7);
+  background: rgba(10,10,10,0.6);
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+.client-card-body {
+  padding: 22px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.client-card-name {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--off-white);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.client-card-role {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(200,200,200,0.4);
+  margin-bottom: 12px;
+}
+.client-card-desc {
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(240,237,230,0.45);
+}
+
+/* hover reveal overlay */
+.client-card-hover {
+  position: absolute;
+  inset: 0;
+  background: rgba(10,10,10,0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+}
+.client-card:hover .client-card-hover { opacity: 1; }
+.client-card-hover-text {
+  font-size: 17px;
+  line-height: 1.85;
+  color: rgba(240,237,230,0.75);
+  text-align: center;
+}
+.client-card-hover-role {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-client);
+  margin-bottom: 16px;
+  display: block;
+}
+
+/* ─── ADDITIONAL / TIMELINE ───────────────────────────────────── */
+#additional {
+  padding: 100px 40px;
+  background: var(--bg);
+}
+.add-inner { max-width: 900px; margin: 0 auto; }
+.add-section-label {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 60px;
+}
+
+.timeline { position: relative; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 120px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(240,237,230,0.08);
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 40px;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(240,237,230,0.05);
+  position: relative;
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+.timeline-item.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 116px;
+  top: 36px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid rgba(240,237,230,0.3);
+  background: var(--bg);
+  z-index: 1;
+}
+
+.timeline-year {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  padding-top: 3px;
+  text-align: right;
+  padding-right: 20px;
+}
+
+.timeline-content {}
+.timeline-org {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--off-white);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.timeline-role-tag {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+  display: block;
+}
+.timeline-desc {
+  font-size: 16px;
+  line-height: 1.85;
+  color: rgba(240,237,230,0.4);
+}
+
+/* ─── CONTACT ────────────────────────────────────────────────── */
+#contact {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 80px 40px;
+  background: #080808;
+  overflow: hidden;
+}
+
+.contact-bg-name {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: clamp(80px, 14vw, 200px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--off-white);
+  opacity: 0.03;
+  pointer-events: none;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.contact-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.contact-label {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 48px;
+  display: block;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.contact-link {
+  font-family: var(--mono);
+  font-size: clamp(18px, 2.4vw, 30px);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  color: var(--off-white);
+  opacity: 0.72;
+  transition: opacity 0.5s var(--ease-out), letter-spacing 0.5s var(--ease-out);
+  position: relative;
+  overflow-wrap: anywhere;
+}
+.contact-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--off-white);
+  transform: scaleX(0);
+  transition: transform 0.5s var(--ease-out);
+  transform-origin: left;
+}
+.contact-link:hover { opacity: 1; }
+.contact-link:hover { letter-spacing: 0.07em; }
+.contact-link:hover::after { transform: scaleX(1); }
+
+.contact-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(240,237,230,0.12);
+}
+
+/* ─── SCROLL TRANSITIONS ─────────────────────────────────────── */
+.section-fade {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+.section-fade.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── PROFILE VIDEO SUPPORT ─────────────────────────────────── */
+.profile-media-wrap {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 1;
+  overflow: hidden;
+  position: relative;
+  background: #141414;
+}
+.profile-media-wrap video,
+.profile-media-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.profile-media-wrap .img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  color: rgba(240,237,230,0.2);
+  background: #141414;
+}
+
+/* ─── MUSIC PLAYLIST SECTION ─────────────────────────────────── */
+#music-playlist {
+  padding: 100px 40px;
+  background: #080808;
+  overflow: hidden;
+}
+.playlist-inner { max-width: 1400px; margin: 0 auto; }
+
+.playlist-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.playlist-section-label {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.playlist-title {
+  font-family: var(--serif);
+  font-size: clamp(36px, 4vw, 60px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--off-white);
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+.playlist-desc {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 520px;
+  margin-bottom: 56px;
+}
+
+/* Horizontal scroll track list */
+.playlist-track-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.track-row {
+  display: grid;
+  grid-template-columns: 48px 1fr auto auto;
+  align-items: center;
+  gap: 0 24px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(240,237,230,0.07);
+  position: relative;
+  transition: background 0.4s;
+  overflow: hidden;
+}
+.track-row::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(240,237,230,0.03);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-out);
+}
+.track-row:hover::before { transform: scaleX(1); }
+
+.track-num {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  color: rgba(240,237,230,0.2);
+  text-align: right;
+  padding-right: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.track-info { position: relative; z-index: 1; }
+.track-title {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--off-white);
+  margin-bottom: 3px;
+}
+.track-artist {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(240,237,230,0.35);
+}
+
+.track-role {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border: 1px solid rgba(240,237,230,0.15);
+  color: rgba(240,237,230,0.4);
+  white-space: nowrap;
+  position: relative;
+  z-index: 1;
+  transition: border-color 0.4s, color 0.4s;
+}
+.track-row:hover .track-role {
+  border-color: rgba(240,237,230,0.35);
+  color: rgba(240,237,230,0.8);
+}
+
+.track-year {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: rgba(240,237,230,0.2);
+  white-space: nowrap;
+  position: relative;
+  z-index: 1;
+}
+
+/* Accent dots per project */
+.track-row[data-project="mael"]   .track-title { color: var(--accent-mael); }
+.track-row[data-project="path"]   .track-title { color: #c8a090; }
+.track-row[data-project="szg"]    .track-title { color: var(--accent-szg); }
+.track-row[data-project="client"] .track-title { color: var(--accent-client); }
+
+/* ─── YOUTUBE PLAYER (hidden iframe + widget wave icon) ───────── */
+#yt-wave-icon {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 18px;
+  flex-shrink: 0;
+}
+#yt-wave-icon span {
+  display: block;
+  width: 3px;
+  background: var(--off-white);
+  border-radius: 2px;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+#yt-wave-icon.playing span {
+  opacity: 1;
+  animation: audioWave 1.2s ease-in-out infinite;
+}
+#yt-wave-icon span:nth-child(1) { height: 5px; animation-delay: 0s; }
+#yt-wave-icon span:nth-child(2) { height: 12px; animation-delay: 0.2s; }
+#yt-wave-icon span:nth-child(3) { height: 18px; animation-delay: 0.1s; }
+#yt-wave-icon span:nth-child(4) { height: 8px; animation-delay: 0.3s; }
+#yt-wave-icon span:nth-child(5) { height: 14px; animation-delay: 0.15s; }
+
+/* hidden YT iframe */
+#yt-iframe-wrap {
+  position: fixed;
+  left: -9999px;
+  top: 0;
+  width: 320px;
+  height: 180px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ─── PERSONAL PROJECTS ──────────────────────────────────────── */
+#personal-projects {
+  padding: 100px 40px;
+  background: #070707;
+}
+.personal-inner { max-width: 1400px; margin: 0 auto; }
+.personal-section-label {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.personal-title {
+  font-family: var(--serif);
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--off-white);
+  margin-bottom: 60px;
+  line-height: 1.05;
+}
+
+.personal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+}
+.personal-card {
+  background: #0d0d0d;
+  border: 1px solid rgba(240,237,230,0.07);
+  overflow: hidden;
+  transition: border-color 0.5s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.personal-card:hover { border-color: rgba(240,237,230,0.22); }
+
+.personal-card-media {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  position: relative;
+  background: #111;
+}
+.personal-card-media img,
+.personal-card-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out);
+  filter: saturate(0.85) sepia(0.1);
+}
+.personal-card:hover .personal-card-media img,
+.personal-card:hover .personal-card-media video { transform: scale(1.04); }
+
+.personal-card-media .img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  color: rgba(240,237,230,0.15);
+}
+
+.personal-card-body {
+  padding: 20px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.personal-card-category {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+  display: block;
+}
+.personal-card-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--off-white);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.personal-card-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(240,237,230,0.4);
+}
+.personal-card-year {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: rgba(240,237,230,0.2);
+  margin-top: auto;
+  padding-top: 16px;
+  display: block;
+}
+
+.personal-card.is-placeholder {
+  opacity: 0.58;
+}
+.personal-card.is-placeholder:hover {
+  border-color: rgba(240,237,230,0.12);
+}
+.personal-card.is-placeholder .personal-card-media {
+  background:
+    linear-gradient(135deg, rgba(240,237,230,0.035), transparent 52%),
+    #0f0f0f;
+}
+.personal-card.is-placeholder .personal-card-media img {
+  opacity: 0;
+}
+.personal-card.is-placeholder .img-placeholder {
+  display: flex !important;
+  color: rgba(240,237,230,0.18);
+}
+
+/* add project placeholder card */
+.personal-card.add-card {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  border-style: dashed;
+  border-color: rgba(240,237,230,0.1);
+  flex-direction: column;
+  gap: 12px;
+}
+.personal-card.add-card .add-icon {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(240,237,230,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: rgba(240,237,230,0.25);
+  transition: border-color 0.4s, color 0.4s;
+}
+.personal-card.add-card:hover .add-icon {
+  border-color: rgba(240,237,230,0.5);
+  color: rgba(240,237,230,0.6);
+}
+.personal-card.add-card span {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(240,237,230,0.2);
+}
+
+/* ─── SCROLL PROGRESS DOTS ───────────────────────────────────── */
+#scroll-dots {
+  position: fixed;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 8000;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+#scroll-dots .sd-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#scroll-dots .sd-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(240,237,230,0.3);
+  background: transparent;
+  transition: all 0.4s var(--ease-out);
+  cursor: pointer;
+}
+#scroll-dots .sd-item:hover .sd-dot { border-color: rgba(240,237,230,0.7); }
+#scroll-dots .sd-item.active .sd-dot {
+  background: var(--off-white);
+  border-color: var(--off-white);
+  transform: scale(1.3);
+}
+/* progress ring on active dot */
+#scroll-dots .sd-item.active .sd-dot {
+  box-shadow: 0 0 0 4px rgba(240,237,230,0.12);
+}
+#scroll-dots .sd-label {
+  position: absolute;
+  right: 22px;
+  white-space: nowrap;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--off-white);
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.4s, transform 0.4s;
+  pointer-events: none;
+  background: rgba(10,10,10,0.8);
+  padding: 3px 8px;
+}
+#scroll-dots .sd-item:hover .sd-label,
+#scroll-dots .sd-item.active .sd-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+/* top progress bar */
+#scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--off-white);
+  opacity: 0.5;
+  z-index: 9001;
+  transition: width 0.1s linear;
+}
+@media (max-width: 768px) {
+  #scroll-dots { display: none; }
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  #about { grid-template-columns: 1fr; gap: 48px; }
+  .skillset-grid, .profile-info-grid { grid-template-columns: 1fr; }
+  .about-left .profile-info-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+  .szg-header { flex-direction: column; }
+  .szg-seasons { grid-template-columns: 1fr 1fr; }
+  .ps-works { grid-template-columns: 1fr; }
+  .apb-inner { grid-template-columns: 1fr; }
+  .client-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 1024px) {
+  .personal-grid { grid-template-columns: 1fr 1fr; }
+  .track-row { grid-template-columns: 36px 1fr auto; }
+  .track-year { display: none; }
+}
+@media (max-width: 768px) {
+  #nav { padding: 20px 24px; }
+  #nav-links { display: none; }
+  .personal-grid { grid-template-columns: 1fr; }
+  #playlist-btn { display: none; }
+  #hero h1 { font-size: 14vw; }
+  #about { padding: 80px 24px; }
+  .credential-row { grid-template-columns: 1fr; gap: 8px; }
+  #szg, #mael, #pathseven, #apb, #client-work, #personal-projects, #additional { padding: 80px 24px; }
+  #contact { padding: 60px 24px; }
+  .szg-seasons { grid-template-columns: 1fr; }
+  .szg-grid { grid-template-columns: 1fr 1fr; }
+  .mael-releases { grid-template-columns: 1fr; }
+  .timeline::before { left: 80px; }
+  .timeline-item { grid-template-columns: 80px 1fr; gap: 24px; }
+  .timeline-item::before { left: 76px; }
+  #hero h1 { font-size: 12vw; }
+  .szg-title, .mael-title, .ps-title { font-size: 13vw; }
+  /* disable cursor on touch */
+  #cursor-dot, #cursor-ring, #cursor-crosshair { display: none; }
+  html { cursor: auto; }
+  *, *::before, *::after { cursor: auto !important; }
+}
+
+/* ─── INTERLUDE — Personal Visual Work ─────────────────────── */
+#interlude { position: relative; min-height: 94vh; display: flex; align-items: flex-end; overflow: hidden; padding: 0; }
+#interlude .interlude-bg { position: absolute; inset: 0; overflow: hidden; }
+#interlude .interlude-bg img, #interlude .interlude-bg .img-placeholder { width: 100%; height: 100%; object-fit: cover; }
+#interlude .interlude-bg img { filter: saturate(0.82) sepia(0.04); transform: scale(1.06); transition: transform 3s var(--ease-out); }
+#interlude.in-view .interlude-bg img { transform: scale(1); }
+#interlude .interlude-bg .img-placeholder { display: flex; align-items: center; justify-content: center; background: #111; font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; color: rgba(240,237,230,0.25); }
+#interlude .interlude-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.25) 55%, rgba(10,10,10,0.55) 100%); }
+.interlude-content { position: relative; z-index: 1; width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 40px 76px; }
+.interlude-label { font-family: var(--mono); font-size: 13px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent-szg); margin-bottom: 18px; }
+.interlude-title { font-family: var(--serif); font-weight: 700; font-size: clamp(40px, 6vw, 82px); letter-spacing: -0.02em; line-height: 1; color: var(--off-white); margin-bottom: 20px; }
+.interlude-caption { font-family: var(--mono); font-size: 13px; letter-spacing: 0.1em; color: rgba(240,237,230,0.6); margin-bottom: 10px; }
+.interlude-stats { font-family: var(--mono); font-size: 15px; letter-spacing: 0.08em; color: var(--off-white); margin-bottom: 10px; }
+.interlude-boards { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: rgba(240,237,230,0.42); margin-bottom: 26px; }
+.interlude-closing { font-family: var(--serif); font-style: italic; font-size: clamp(18px, 2vw, 27px); line-height: 1.5; color: rgba(240,237,230,0.92); max-width: 660px; }
+.interlude-closing .muted { display: block; font-size: 0.6em; font-style: normal; font-family: var(--mono); letter-spacing: 0.05em; color: rgba(240,237,230,0.45); margin-top: 14px; line-height: 1.6; }
+.interlude-statcards { display: flex; gap: 28px; flex-wrap: wrap; margin: 18px 0 22px; }
+.interlude-statcards .isc b { font-family: var(--serif); font-size: 34px; font-weight: 700; color: var(--accent-szg); line-height: 1; display: block; }
+.interlude-statcards .isc span { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(240,237,230,0.5); margin-top: 7px; display: block; }
+@media (max-width: 600px) { .interlude-content { padding: 0 22px 56px; } #interlude { min-height: 88vh; } }
+
+</style>
+</head>
+<body>
+
+<!-- ══ CUSTOM CURSOR ══════════════════════════════════════════ -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<div id="cursor-crosshair"></div>
+
+<!-- ══ AUDIO TOGGLE ══════════════════════════════════════════ -->
+<div id="playlist-btn" class="muted" role="group" aria-label="YouTube playlist player">
+  <div id="playlist-label-row">
+    <span id="playlist-word">Playlist</span>
+    <div class="audio-icon" id="yt-wave-icon">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <span id="playlist-expand-arrow">⌄</span>
+  </div>
+  <!-- Now Playing -->
+  <div id="playlist-now-row">
+    <div class="pl-mini-label">Now Playing</div>
+    <div id="playlist-track-name"><span class="track-marquee">YouTube 플레이리스트 연결됨</span></div>
+    <div id="pl-now-title" hidden></div>
+  </div>
+  <!-- transport controls -->
+  <div id="playlist-controls-row">
+    <button id="yt-prev-btn" aria-label="이전 트랙">&#9198;</button>
+    <button id="yt-play-pause-btn" aria-label="재생/일시정지">&#9654;</button>
+    <button id="yt-next-btn" aria-label="다음 트랙">&#9197;</button>
+  </div>
+  <!-- expandable up next -->
+  <div id="playlist-expand">
+    <div class="pl-next-block">
+      <div class="pl-mini-label">Up Next</div>
+      <div class="pl-next-list" id="pl-next-list"></div>
+    </div>
+  </div>
+  <div id="playlist-toggle-row">
+    <button id="sound-on-btn" aria-label="Sound on">▶ Sound On</button>
+    <button id="sound-off-btn" class="active" aria-label="Sound off">◼ Sound Off</button>
+  </div>
+</div>
+
+<!-- ══ NAVIGATION ════════════════════════════════════════════ -->
+<nav id="nav">
+  <a href="#hero" id="nav-logo" title="홈으로">[YS]</a>
+  <ul id="nav-links">
+    <li><a href="#about" data-section="about">소개</a></li>
+    <li><a href="#szg" data-section="szg">SZG</a></li>
+    <li><a href="#mael" data-section="mael">[mael]</a></li>
+    <li><a href="#pathseven" data-section="pathseven">[Path Seven]</a></li>
+    <li><a href="#apb" data-section="apb">[APB]</a></li>
+    <li><a href="#client-work" data-section="client">Client</a></li>
+    <li><a href="#personal-projects" data-section="personal-projects">개인 프로젝트</a></li>
+    <li><a href="#contact" data-section="contact">연락처</a></li>
+  </ul>
+</nav>
+
+<!-- ══ SCROLL PROGRESS ════════════════════════════════════════ -->
+<div id="scroll-progress-bar"></div>
+<div id="scroll-dots">
+  <div class="sd-item" data-target="hero"><span class="sd-label">Home</span><span class="sd-dot"></span></div>
+  <div class="sd-item" data-target="about-section-wrap"><span class="sd-label">소개</span><span class="sd-dot"></span></div>
+  <div class="sd-item" data-target="interlude"><span class="sd-label">Personal</span><span class="sd-dot"></span></div>
+  <div class="sd-item" data-target="szg"><span class="sd-label">SZG</span><span class="sd-dot"></span></div>
+  <div class="sd-item" data-target="mael"><span class="sd-label">[mael]</span><span class="sd-dot"></span></div>
+  <div class="sd-item" data-target="pathseven"><span class="sd-label">[Path Seven]</span><span class="sd-dot"></span></div>
+  <div class="sd-item" data-target="apb"><span class="sd-label">[APB]</span><span class="sd-dot"></span></div>
+  <div class="sd-item" data-target="client-work"><span class="sd-label">Client</span><span class="sd-dot"></span></div>
+  <div class="sd-item" data-target="personal-projects"><span class="sd-label">개인 프로젝트</span><span class="sd-dot"></span></div>
+  <div class="sd-item" data-target="contact"><span class="sd-label">연락처</span><span class="sd-dot"></span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- HERO                                                       -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="hero">
+  <span id="hero-asterisk">✳</span>
+
+  <h1 class="reveal-text" id="hero-title">[Yebin Song]</h1>
+
+  <p id="hero-subtitle">
+    예술 문화와 미디어의 접점에서<br>아티스트의 세계관을 함께 설계합니다.
+  </p>
+
+  <div id="ticker-wrap">
+    <div id="ticker">
+      <span>Storytelling</span><span class="sep"> / </span>
+      <span>Production Handling</span><span class="sep"> / </span>
+      <span>IP Expansion</span><span class="sep"> / </span>
+      <span>Visual Identity</span><span class="sep"> / </span>
+      <span>A&amp;R</span><span class="sep"> / </span>
+      <span>Creative Direction</span><span class="sep"> / </span>
+      <span>Storytelling</span><span class="sep"> / </span>
+      <span>Production Handling</span><span class="sep"> / </span>
+      <span>IP Expansion</span><span class="sep"> / </span>
+      <span>Visual Identity</span><span class="sep"> / </span>
+      <span>A&amp;R</span><span class="sep"> / </span>
+      <span>Creative Direction</span><span class="sep"> / </span>
+      <span>Storytelling</span><span class="sep"> / </span>
+      <span>Production Handling</span><span class="sep"> / </span>
+      <span>IP Expansion</span><span class="sep"> / </span>
+      <span>Visual Identity</span><span class="sep"> / </span>
+      <span>A&amp;R</span><span class="sep"> / </span>
+      <span>Creative Direction</span><span class="sep"> / </span>
+    </div>
+  </div>
+
+  <div id="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>스크롤</span>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ABOUT                                                      -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div id="about-section-wrap">
+<div id="about" class="section-fade">
+
+  <!-- LEFT: profile image or video -->
+  <div class="about-left">
+    <div class="profile-media-wrap">
+      <!-- 비디오 우선 시도, 없으면 이미지, 둘 다 없으면 placeholder -->
+      <video
+        src="assets/img/profile.mp4"
+        autoplay muted loop playsinline
+        onerror="this.style.display='none';document.getElementById('profile-img-fallback').style.display='block';"
+        style="display:block;">
+      </video>
+      <img
+        id="profile-img-fallback"
+        src="assets/img/profile.jpg"
+        alt="Yebin Song"
+        style="display:none;"
+        onerror="this.style.display='none';document.getElementById('profile-placeholder').style.display='flex';">
+      <div id="profile-placeholder" class="img-placeholder" style="display:none;">프로필 사진 / 영상</div>
+    </div>
+    <div class="profile-info-grid">
+      <div class="profile-info-card stat-item">
+        <span class="stat-number">4개국</span>
+        <span class="stat-label">성장 배경</span>
+        <div class="stat-countries">
+          <span>캐나다</span><span>필리핀</span><span>중국</span><span>한국</span>
+        </div>
+      </div>
+      <div class="profile-info-card language-card">
+        <div class="language-title">언어</div>
+        <div class="language-list">
+          <div class="language-row"><span class="language-name">영어</span><span class="stars">★★★★★</span></div>
+          <div class="language-row"><span class="language-name">한국어</span><span class="stars">★★★★★</span></div>
+          <div class="language-row"><span class="language-name">중국어</span><span class="stars">★★★<span class="empty">☆☆</span></span></div>
+          <div class="language-row"><span class="language-name">타갈로그어</span><span class="stars">★★<span class="empty">☆☆☆</span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: content -->
+  <div class="about-right">
+    <p class="about-section-label">00 — 소개</p>
+    <h2 class="about-title">크리에이티브<br>프로듀서 &amp; A&amp;R</h2>
+
+    <div class="value-cards">
+      <div class="value-card open">
+        <div class="value-card-header">
+          <h4>Storytelling &amp; Narrative</h4>
+          <div class="value-card-toggle"></div>
+        </div>
+        <div class="value-card-body">
+          <p>앨범과 프로젝트의 핵심 메시지를 구조화하고, 아티스트의 페르소나가 일관된 시각 언어로 전달되도록 설계합니다.</p>
+        </div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-header">
+          <h4>Production Handling</h4>
+          <div class="value-card-toggle"></div>
+        </div>
+        <div class="value-card-body">
+          <p>초기 기획, 일정 조율, 현장 운영, 후반 결과물 관리까지 프로젝트의 제작 흐름을 안정적으로 연결합니다.</p>
+        </div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-header">
+          <h4>IP Content Expansion</h4>
+          <div class="value-card-toggle"></div>
+        </div>
+        <div class="value-card-body">
+          <p>단일 발매나 이벤트를 넘어, 아티스트 IP가 콘텐츠·MD·온라인 경험으로 확장될 수 있는 구조를 기획합니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="skillset-grid">
+      <div class="skillset-group">
+        <div class="skillset-title">OA</div>
+        <div class="skillset-tags">
+          <span class="skill-tag">Google Suite</span>
+          <span class="skill-tag">Word</span>
+          <span class="skill-tag">Excel</span>
+          <span class="skill-tag">PowerPoint</span>
+        </div>
+      </div>
+      <div class="skillset-group">
+        <div class="skillset-title">Adobe Suite</div>
+        <div class="skillset-tags">
+          <span class="skill-tag">Photoshop</span>
+          <span class="skill-tag">Illustrator</span>
+          <span class="skill-tag">Premiere Pro</span>
+        </div>
+      </div>
+      <div class="skillset-group">
+        <div class="skillset-title">New Media</div>
+        <div class="skillset-tags">
+          <span class="skill-tag">TouchDesigner</span>
+          <span class="skill-tag">Blender</span>
+          <span class="skill-tag">Nomad Sculpt</span>
+        </div>
+      </div>
+      <div class="skillset-group">
+        <div class="skillset-title">Management</div>
+        <div class="skillset-tags">
+          <span class="skill-tag">Atlassian Jira</span>
+          <span class="skill-tag">Notion</span>
+          <span class="skill-tag">Miro</span>
+          <span class="skill-tag">Canva</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">SOCAN</span>
+          <span class="skill-tag">DistroKid</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="credential-row">
+    <div class="credential-label">Certification</div>
+    <div class="credential-name">Tableau Business Intelligence Analyst Professional Certificate<span class="credential-provider">Coursera · 데이터 분석 및 비즈니스 인텔리전스</span></div>
+    <div class="credential-state">취득 예정</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- INTERLUDE — Personal Visual Work                           -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="interlude" class="section-fade">
+  <div class="interlude-bg">
+    <img src="assets/img/personal/ttc_romanticized.jpg" alt="TTC romanticized"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+    <div class="img-placeholder" style="display:none;">assets/img/personal/ttc_romanticized.jpg</div>
+  </div>
+  <div class="interlude-content">
+    <div class="interlude-label">Personal Visual Work</div>
+    <h2 class="interlude-title">TTC romanticized</h2>
+    <div class="interlude-caption">2024.01 게시 · 직접 촬영·편집</div>
+    <div class="interlude-stats">노출 96.8K · 저장 1,021 · 핀 클릭 2,004</div>
+    <div class="interlude-boards">Gen X Soft Club · 90s Gen X Soft Club · GenXSoftClub</div>
+    <p class="interlude-closing">되돌아온 90·00년대 미학을 일찍 읽고 직접 재현한 한 장. 지금은 트렌드의 현대 레퍼런스로 퍼지고 있습니다.<span class="muted">— 다수가 당대 원본으로 인식할 만큼 정밀하게 재현했습니다.</span></p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SZG PRODUCTION LAB                                         -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="szg">
+  <div class="szg-inner">
+
+    <div class="szg-header section-fade">
+      <div>
+        <p class="szg-handle">@sizigi.zip</p>
+        <h2 class="szg-title">Syzygy<br>Production<br>Lab</h2>
+      </div>
+      <div class="szg-desc-block">
+        <p class="szg-desc">토론토 기반 독립 프로덕션 콜렉티브에서 아티스트 발굴, 전시 기획, 베뉴 섭외, 티켓 세일즈, 현장 운영까지 전 과정을 총괄했습니다. Toronto, Canada. 2024–2026.</p>
+        <p class="section-label" style="color:rgba(170,255,71,0.4);">01 — 독립 프로덕션 콜렉티브</p>
+      </div>
+    </div>
+
+    <!-- Big stats -->
+    <div class="szg-stats section-fade">
+      <div class="szg-stat-item">
+        <span class="szg-stat-number">2</span>
+        <span class="szg-stat-label">년</span>
+      </div>
+      <div class="szg-stat-item">
+        <span class="szg-stat-number">10</span>
+        <span class="szg-stat-label">이벤트</span>
+      </div>
+      <div class="szg-stat-item">
+        <span class="szg-stat-number">60+</span>
+        <span class="szg-stat-label">아티스트</span>
+      </div>
+      <div class="szg-stat-item">
+        <span class="szg-stat-number">1K+</span>
+        <span class="szg-stat-label">관객</span>
+      </div>
+    </div>
+
+    <!-- Case study seasons -->
+    <p class="section-label" style="color:rgba(170,255,71,0.4);margin-bottom:20px;">케이스 스터디 — 404 Not Found 전시 시리즈</p>
+    <p class="section-label" style="color:rgba(170,255,71,0.3);margin-bottom:14px;font-size: 13px;">↓ 시즌을 클릭해 자세히 보기</p>
+    <div class="szg-seasons section-fade">
+      <div class="szg-season">
+        <div class="szg-season-year"><span>2024 — 시즌 01</span><span class="season-plus">+</span></div>
+        <div class="szg-season-theme">Lights, Shadows,<br>Construction &amp;<br>Deconstruction</div>
+        <div class="szg-season-stats">
+          <div class="ss-stat"><b>15</b><span>아티스트</span></div>
+          <div class="ss-stat"><b>100+</b><span>전시 게스트</span></div>
+          <div class="ss-stat"><b>150</b><span>티켓 세일즈</span></div>
+        </div>
+        <div class="szg-season-bep">✓ 손익분기(BEP) 초과 달성</div>
+        <div class="szg-season-detail">
+          <p class="szg-season-desc">404 Not Found 시리즈의 첫 시즌. 빛과 그림자, 해체와 재구성을 주제로 한 멀티미디어 전시. 아티스트 발굴부터 베뉴 섭외, 라이브 셋까지 전 과정 총괄.</p>
+          <div class="szg-season-photos">
+            <div class="szg-mini-photo">
+              <img src="assets/img/szg/s1-01.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+              <div class="img-placeholder" style="display:none;">01</div>
+            </div>
+            <div class="szg-mini-photo">
+              <img src="assets/img/szg/s1-02.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+              <div class="img-placeholder" style="display:none;">02</div>
+            </div>
+            <div class="szg-mini-photo">
+              <img src="assets/img/szg/s1-03.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+              <div class="img-placeholder" style="display:none;">03</div>
+            </div>
+          </div>
+          <span class="szg-season-tag">콜라보 전시 시리즈</span>
+        </div>
+        <div class="szg-season-more">＋ 사진 · 상세 보기</div>
+      </div>
+      <div class="szg-season">
+        <div class="szg-season-year"><span>2025 — 시즌 02</span><span class="season-plus">+</span></div>
+        <div class="szg-season-theme">Clone,<br>Real or Fake?</div>
+        <div class="szg-season-stats">
+          <div class="ss-stat"><b>26</b><span>아티스트</span></div>
+          <div class="ss-stat"><b>300+</b><span>전시 게스트</span></div>
+          <div class="ss-stat"><b>300</b><span>티켓 세일즈</span></div>
+        </div>
+        <div class="szg-season-bep">✓ 손익분기(BEP) 초과 달성</div>
+        <div class="szg-season-revenue">예산 200만원 → 수익 350만원</div>
+        <div class="szg-season-detail">
+          <p class="szg-season-desc">복제와 진위(Authenticity)를 묻는 두 번째 시즌. 인터랙티브 아트, 라이브 뮤직, 멀티미디어 설치로 구성. 시리즈 중 최대 규모로 운영.</p>
+          <span class="szg-season-tag">인터랙티브 / 라이브</span>
+        </div>
+        <div class="szg-season-more">＋ 상세 보기</div>
+      </div>
+      <div class="szg-season">
+        <div class="szg-season-year"><span>2026 — 시즌 03</span><span class="season-plus">+</span></div>
+        <div class="szg-season-theme">limbo.com</div>
+        <div class="szg-season-stats">
+          <div class="ss-stat"><b>11</b><span>아티스트</span></div>
+          <div class="ss-stat"><b>70</b><span>전시 게스트</span></div>
+        </div>
+        <div class="szg-season-detail">
+          <p class="szg-season-desc">디지털 림보를 주제로 한 세 번째 시즌. 온·오프라인 경계를 넘나드는 경험으로 기획.</p>
+          <span class="szg-season-tag">2026</span>
+        </div>
+        <div class="szg-season-more">＋ 상세 보기</div>
+      </div>
+    </div>
+
+    <!-- Photo grid -->
+    <p class="section-label" style="color:rgba(170,255,71,0.3);margin:0 0 14px;font-size: 13px;">↓ 사진을 클릭해 설명 보기</p>
+    <div class="szg-grid section-fade">
+      <div class="szg-grid-item"
+        data-cap-title="404 Not Found"
+        data-cap-desc="메인 전시 포스터 / 키 비주얼">
+        <img src="assets/img/szg/grid-01.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">01</div>
+      </div>
+      <div class="szg-grid-item"
+        data-cap-title="Opening Cypher"
+        data-cap-desc="오프닝 사이퍼 / 라이브 퍼포먼스">
+        <img src="assets/img/szg/grid-02.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">02</div>
+      </div>
+      <div class="szg-grid-item"
+        data-cap-title="Glyph Verse"
+        data-cap-desc="그래피티 / 힙합 zine 전시">
+        <img src="assets/img/szg/grid-03.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">03</div>
+      </div>
+      <div class="szg-grid-item"
+        data-cap-title="Call for Submission"
+        data-cap-desc="아티스트 공모 / 큐레이션">
+        <img src="assets/img/szg/grid-04.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">04</div>
+      </div>
+      <div class="szg-grid-item"
+        data-cap-title="Live Set"
+        data-cap-desc="모듈러 신스 라이브 셋">
+        <img src="assets/img/szg/grid-05.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">05</div>
+      </div>
+      <div class="szg-grid-item"
+        data-cap-title="Exhibition Floor"
+        data-cap-desc="전시 공간 / 인터랙티브 설치">
+        <img src="assets/img/szg/grid-06.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">06</div>
+      </div>
+      <div class="szg-grid-item"
+        data-cap-title="Audience"
+        data-cap-desc="1,000+ 관객 / 오프닝 파티">
+        <img src="assets/img/szg/grid-07.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">07</div>
+      </div>
+      <div class="szg-grid-item"
+        data-cap-title="Clone, Real or Fake?"
+        data-cap-desc="시즌 02 / 메인 비주얼">
+        <img src="assets/img/szg/grid-08.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">08</div>
+      </div>
+      <div class="szg-grid-item"
+        data-cap-title="Behind the Scenes"
+        data-cap-desc="셋업 / 베뉴 운영">
+        <img src="assets/img/szg/grid-09.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="img-placeholder" style="display:none;background:#0e120a;color:rgba(170,255,71,0.2);">09</div>
+      </div>
+    </div>
+
+    <div style="margin-top:40px;">
+      <div class="tag-list">
+        <span class="tag green">#InteractiveArt</span>
+        <span class="tag green">#LiveMusic</span>
+        <span class="tag green">#MultimediaExhibition</span>
+      </div>
+      <div class="szg-collabs">
+        <strong>협업 —</strong>
+        World War Won / ZeroZero Films / Hart House UTSC /
+        Bevy / Cafe Our Hours / Stalefish Gallery
+      </div>
+      <p class="szg-funded">UTSC 문화 지원 프로그램 선정 지원</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ARTIST: mael                                               -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="mael">
+  <div class="mael-inner">
+
+    <h2 class="artist-opener-title section-fade">
+      <span class="ao-num">02-1 — 아티스트 프로젝트 / 컨셉 디렉션</span>
+      Artist<br>Project
+    </h2>
+    <h3 class="mael-title section-fade">[mael]</h3>
+
+    <!-- intro -->
+    <p class="mael-desc-text section-fade" style="max-width:720px;margin-bottom:64px;color:rgba(212,168,168,0.75);">
+      아티스트 mael의 데뷔 싱글부터 후속 발매까지 브랜딩, 웹 아키텍처, 비주얼 방향성, 프로모션 전략, IP 확장을 함께 설계했습니다.<br>
+      '취약함(Vulnerability)'과 '성장'을 핵심 키워드로 설정하고, Dreamcore 미학과 자연의 서사를 결합한 아티스트 세계관을 구축했습니다.
+    </p>
+
+    <!-- 3 releases -->
+    <div class="mael-releases section-fade">
+      <div class="release-card">
+        <div class="release-card-img">
+          <img src="assets/img/mael/metamorphosis.jpg" alt="metamorphosis" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;background:#1e1912;color:rgba(212,168,168,0.2);">metamorphosis</div>
+        </div>
+        <div class="release-title">[metamorphosis] single</div>
+      </div>
+      <div class="release-card">
+        <div class="release-card-img">
+          <img src="assets/img/mael/two-sides.jpg" alt="two sides" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;background:#1e1912;color:rgba(212,168,168,0.2);">two sides</div>
+        </div>
+        <div class="release-title">[two sides] single</div>
+      </div>
+      <div class="release-card">
+        <div class="release-card-img">
+          <img src="assets/img/mael/my-truth.jpg" alt="my truth" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;background:#1e1912;color:rgba(212,168,168,0.2);">my truth</div>
+        </div>
+        <div class="release-title">[my truth] single</div>
+      </div>
+    </div>
+
+    <!-- ── DEEP DIVE: metamorphosis ── -->
+    <div class="mael-deep-section section-fade">
+      <div class="mael-deep-header">
+        <span class="mael-detail-label">SINGLE 01</span>
+        <h3 class="mael-deep-title">[metamorphosis]</h3>
+      </div>
+      <div class="mael-deep-body">
+        <div class="mael-deep-text">
+          <p class="mael-desc-text">데뷔 싱글의 핵심 정서를 '불안함'과 '재탄생'으로 정의하고, Dreamcore 미학을 기반으로 변이(Metamorphosis)의 서사를 시각화했습니다.</p>
+          <p class="mael-desc-text">안개 낀 숲, 나비 심볼, 디헤이즈 질감, 레이어드 코스튬을 활용해 아티스트의 첫 이미지를 정교하게 정리했습니다.</p>
+          <div class="mael-keywords">
+            <span>Divine Feminine</span>
+            <span>Dreamcore</span>
+            <span>Metamorphosis</span>
+            <span>고치(Cocoon)</span>
+          </div>
+        </div>
+        <div class="mael-deep-role-block">
+          <div class="mael-role-item"><span class="mael-role-key">사운드 방향</span><span class="mael-role-val">Ambient R&amp;B · Ethereal Vocals · Textural Layering</span></div>
+          <div class="mael-role-item"><span class="mael-role-key">비주얼 무드</span><span class="mael-role-val">Misty Forest · Butterfly Symbolism · Raw Vocal Texture</span></div>
+          <div class="mael-role-item"><span class="mael-role-key">담당 작업</span><span class="mael-role-val">컨셉 디렉션 · 무드보드 · 촬영 레퍼런스 · 로고 디자인</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── metamorphosis: WEB ARCHITECTURE ── -->
+    <div class="mael-deep-section section-fade">
+      <div class="mael-deep-header">
+        <span class="mael-detail-label">SINGLE 01 · DIGITAL ARCHITECTURE</span>
+        <h3 class="mael-deep-title">공식 웹사이트 &amp; Pre-save</h3>
+      </div>
+      <div class="mael-deep-body">
+        <div class="mael-deep-text">
+          <p class="mael-desc-text">발매 전 단계에서 아티스트 세계관을 먼저 경험할 수 있도록 공식 웹사이트와 Pre-save 랜딩 페이지를 기획하고 런칭했습니다.</p>
+          <div class="mael-keywords">
+            <span>Official Site</span>
+            <span>Pre-save Landing</span>
+            <span>Visual Archive</span>
+            <span>Listener Data</span>
+          </div>
+        </div>
+        <div class="mael-deep-role-block">
+          <div class="mael-role-item"><span class="mael-role-key">구현 내용</span><span class="mael-role-val">공식 웹사이트 · Pre-save 랜딩 페이지 런칭</span></div>
+          <div class="mael-role-item"><span class="mael-role-key">전략 목표</span><span class="mael-role-val">드림코어 비주얼 아카이빙 · 발매 전 리스너 확보</span></div>
+          <div class="mael-role-item"><span class="mael-role-key">결과</span><span class="mael-role-val">SOCAN IPI 발급 · DistroKid 음원 유통 실무</span></div>
+          <div class="mael-media-block">
+            <div class="mael-media-label">Reference Image</div>
+            <div class="mael-media-frame ratio-16-9">
+              <img src="assets/img/mael/web-presave.jpg" alt="mael official website and pre-save reference" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+              <div class="img-placeholder" style="display:none;">web-presave.jpg<br>공식 웹사이트 / Pre-save 자료</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── metamorphosis: PLANTING SEED / IP VISION ── -->
+    <div class="mael-deep-section section-fade">
+      <div class="mael-deep-header">
+        <span class="mael-detail-label">SINGLE 01 · IP NARRATIVE STRATEGY</span>
+        <h3 class="mael-deep-title">Planting Seed<br>장기 서사 전략</h3>
+      </div>
+      <div class="mael-deep-body">
+        <div class="mael-deep-text">
+          <p class="mael-desc-text">각 싱글 발매를 하나의 '씨앗'으로 정의하고, 시간이 흐를수록 아티스트의 세계가 확장되는 장기 내러티브 구조를 설계했습니다.</p>
+          <p class="mael-desc-text">쇼츠 티저, 체험형 MD, 팬 참여형 콘텐츠로 이어질 수 있도록 IP 확장 방향을 함께 기획했습니다.</p>
+          <div class="mael-keywords">
+            <span>Planting Seed</span>
+            <span>팬 세계관 빌딩</span>
+            <span>가드닝 키트 MD</span>
+            <span>씨앗 패키지 MD</span>
+          </div>
+        </div>
+        <div class="mael-deep-role-block">
+          <div class="mael-role-item"><span class="mael-role-key">전략 개념</span><span class="mael-role-val">듣기 → 참여하기 → 키우기</span></div>
+          <div class="mael-role-item"><span class="mael-role-key">IP 확장</span><span class="mael-role-val">체험형 MD · 팬 세계관 빌딩</span></div>
+          <div class="mael-role-item"><span class="mael-role-key">티저 실행</span><span class="mael-role-val">소셜 미디어 티저 전략 + 홍보 타임라인 수립</span></div>
+          <div class="mael-media-block">
+            <div class="mael-media-label">Reference Video · 16:9</div>
+            <div class="mael-media-frame ratio-16-9">
+              <video src="assets/video/mael/planting-seed.mp4" preload="metadata" muted loop playsinline controls onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"></video>
+              <div class="img-placeholder" style="display:none;">planting-seed.mp4<br>16:9 영상 자료</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── DEEP DIVE: two sides (single 02) ── -->
+    <div class="mael-deep-section section-fade">
+      <div class="mael-deep-header">
+        <span class="mael-detail-label">SINGLE 02</span>
+        <h3 class="mael-deep-title">[two sides]</h3>
+      </div>
+      <div class="mael-deep-body">
+        <div class="mael-deep-text">
+          <p class="mael-desc-text">Melodic Indie Pop 사운드와 Lo-fi 세피아 톤을 연결해, 곡의 주제인 양면성(Duality)을 이전 싱글과 대비되는 무드로 연출했습니다.</p>
+          <p class="mael-desc-text">타이프라이터 비주얼라이저와 손글씨 그래픽을 통해 아티스트의 고백적 서사를 시각적으로 전달했습니다.</p>
+          <div class="mael-keywords">
+            <span>Duality (양면성)</span>
+            <span>Lo-fi · 세피아 톤</span>
+            <span>Melodic Indie Pop</span>
+            <span>타이프라이터 비주얼라이저</span>
+          </div>
+        </div>
+        <div class="mael-deep-role-block">
+          <div class="mael-role-item"><span class="mael-role-key">사운드 방향</span><span class="mael-role-val">Melodic Indie Pop · 스트링 인터폴레이션</span></div>
+          <div class="mael-role-item"><span class="mael-role-key">비주얼 방향</span><span class="mael-role-val">Lo-fi 세피아 톤 · 빈티지 무드 · 도시적 스타일링 · 손글씨</span></div>
+          <div class="mael-role-item"><span class="mael-role-key">담당 작업</span><span class="mael-role-val">비주얼라이저 연출 · 편집 · 타이프라이터 영상 · 손글씨 그래픽</span></div>
+          <div class="mael-media-block">
+            <div class="mael-media-label">Reference Videos · 3:4</div>
+            <div class="mael-media-grid">
+              <div class="mael-media-frame ratio-3-4">
+                <video src="assets/video/mael/two-sides-01.mp4" preload="metadata" muted loop playsinline controls onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"></video>
+                <div class="img-placeholder" style="display:none;">two-sides-01.mp4<br>3:4 영상 자료</div>
+              </div>
+              <div class="mael-media-frame ratio-3-4">
+                <video src="assets/video/mael/two-sides-02.mp4" preload="metadata" muted loop playsinline controls onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"></video>
+                <div class="img-placeholder" style="display:none;">two-sides-02.mp4<br>3:4 영상 자료</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tag-list section-fade" style="margin-top:48px;">
+      <span class="tag rose">#브랜딩디렉션</span>
+      <span class="tag rose">#비주얼아이덴티티</span>
+      <span class="tag rose">#IP빌딩</span>
+      <span class="tag rose">#웹런칭</span>
+      <span class="tag rose">#A&amp;R</span>
+      <span class="tag rose">#DistroKid</span>
+      <span class="tag rose">#SOCAN</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ARTIST: Path Seven                                         -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="pathseven">
+  <div class="ps-inner">
+
+    <h2 class="artist-opener-title section-fade">
+      <span class="ao-num">02-2 — 아티스트 리브랜딩 / MV 프로덕션</span>
+      Artist<br>Project
+    </h2>
+    <h3 class="ps-title section-fade">[Path∗Seven]</h3>
+
+    <div class="ps-works section-fade">
+      <div class="ps-work-item">
+        <div class="ps-work-img">
+          <img src="assets/img/pathseven/cheap-labour.jpg" alt="Cheap Labour" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;">CHEAP LABOUR</div>
+        </div>
+        <div class="ps-work-body">
+          <div class="ps-work-title">Cheap Labour</div>
+          <div class="ps-work-desc">글리치, 로우폴리, 디스토션 무드를 기반으로 비주얼라이저를 디렉팅했습니다. 후렴의 핵심 가사를 중심으로 디지털 피로감과 파괴적 에너지를 시각화했습니다.</div>
+        </div>
+      </div>
+
+      <div class="ps-work-item">
+        <div class="ps-work-img">
+          <img src="assets/img/pathseven/nice2knou.jpg" alt="Nice 2 Kno U" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;">NICE 2 KNO U</div>
+        </div>
+        <div class="ps-work-body">
+          <div class="ps-work-title">Nice 2 Kno U</div>
+          <div class="ps-work-desc">앨범 커버와 비주얼라이저를 함께 기획했습니다. Ghost 캐릭터, 비트 맵핑 편집, 디지털 텍스처를 활용해 기억이 흐려지는 감각을 몽환적으로 표현했습니다.</div>
+        </div>
+      </div>
+
+      <div class="ps-work-item">
+        <div class="ps-work-img">
+          <img src="assets/img/pathseven/isurrender.jpg" alt="iSurrender EP" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;">iSURRENDER EP</div>
+        </div>
+        <div class="ps-work-body">
+          <div class="ps-work-title">iSurrender EP</div>
+          <div class="ps-work-desc">Shoulder Shrug MV 프로덕션에서 로케이션 스카우팅, 조명 감독, DOP 섭외 및 협업, 비하인드 테이프 촬영·편집을 담당했습니다.</div>
+        </div>
+      </div>
+
+      <div class="ps-work-item">
+        <div class="ps-work-img">
+          <img src="assets/img/pathseven/imim.jpg" alt="I MAKE INTERESTING MUSIC" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;">I MAKE INTERESTING MUSIC</div>
+        </div>
+        <div class="ps-work-body">
+          <div class="ps-work-title">I Make Interesting Music</div>
+          <div class="ps-work-desc">EP 'iSurrender' 발매에 맞춰 캐치프레이즈를 브랜드 메시지로 확장하고, 티셔츠 MD와 스트리트 콘텐츠로 이어지는 리브랜딩 방향을 설계했습니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tag-list section-fade" style="margin-top:40px;">
+      <span class="tag rust">#Rebranding</span>
+      <span class="tag rust">#MVProduction</span>
+      <span class="tag rust">#VisualDirection</span>
+      <span class="tag rust">#MD</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ARTIST: APB                                                -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="apb">
+  <div class="apb-inner section-fade">
+
+    <div class="apb-left">
+      <h2 class="artist-opener-title section-fade">
+        <span class="ao-num">02-3 — 아티스트 프로젝트</span>
+        Artist<br>Project
+      </h2>
+      <h3 class="apb-title">[APB]</h3>
+      <p class="apb-role">비주얼 디렉션</p>
+      <p class="apb-desc">라이브 공연 환경에 맞춘 콘서트 비주얼라이저를 디렉팅하고, 무대의 에너지와 트랙의 흐름이 연결되도록 비주얼 톤을 설계했습니다.</p>
+      <div class="tag-list" style="margin-top:24px;">
+        <span class="tag grey">#VisualDirection</span>
+        <span class="tag grey">#Concert</span>
+      </div>
+    </div>
+
+    <div class="apb-right">
+      <div class="apb-video-wrap">
+        <video
+          src="assets/video/apb_loop.mp4"
+          autoplay muted loop playsinline
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        </video>
+        <div class="apb-video-placeholder" style="display:none;">
+          <div class="play-icon"></div>
+          <span>apb_loop.mp4</span>
+          <span style="opacity:0.4;">assets/video/ 폴더에 영상 넣어주세요</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- CLIENT WORK                                                -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="client-work">
+  <div class="client-inner">
+    <p class="client-section-label section-fade">03 — Client Work</p>
+    <h2 class="client-title section-fade">Client<br>Projects</h2>
+
+    <div class="client-grid section-fade">
+
+      <!-- Card 1: Erin.A.I — 슬라이더 (사진 여러 장) -->
+      <div class="client-card">
+        <div class="client-slider" data-slider>
+          <div class="client-slides">
+            <div class="client-slide">
+              <img src="assets/img/erin/erin-01.jpg" alt="Erin.A.I 1" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+              <div class="img-placeholder" style="display:none;">Erin.A.I — 01</div>
+            </div>
+            <div class="client-slide">
+              <img src="assets/img/erin/erin-02.jpg" alt="Erin.A.I 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+              <div class="img-placeholder" style="display:none;">Erin.A.I — 02</div>
+            </div>
+            <div class="client-slide">
+              <img src="assets/img/erin/erin-03.jpg" alt="Erin.A.I 3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+              <div class="img-placeholder" style="display:none;">Erin.A.I — 03</div>
+            </div>
+            <div class="client-slide">
+              <img src="assets/img/erin/erin-04.jpg" alt="Erin.A.I 4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+              <div class="img-placeholder" style="display:none;">Erin.A.I — 04</div>
+            </div>
+          </div>
+          <button class="client-slider-arrow prev" aria-label="이전">&#8249;</button>
+          <button class="client-slider-arrow next" aria-label="다음">&#8250;</button>
+          <div class="client-slide-count"><span class="cur">1</span>/<span class="total">4</span></div>
+          <div class="client-slider-dots"></div>
+        </div>
+        <div class="client-card-body">
+          <div class="client-card-name">Erin.A.I × Slow Turtle Shop</div>
+          <div class="client-card-role">Production Assistant / Shoot Producer</div>
+          <div class="client-card-desc">2024 시즌 및 캡슐 컬렉션 북미 캠페인 촬영에 참여했습니다. 콜시트와 촬영 스케줄 관리, 13명 모델 캐스팅, 스타일링 샘플 관리, 무드보드 기반 콘셉트 커뮤니케이션과 현장 디렉션을 담당했습니다.</div>
+        </div>
+      </div>
+
+      <!-- Card 2: DP -->
+      <div class="client-card">
+        <div class="client-card-img">
+          <img src="assets/img/dp/dp-visual.jpg" alt="DP" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;background:#0e0e0e">DP</div>
+        </div>
+        <div class="client-card-body">
+          <div class="client-card-name">[DP] — Concert Tour Visualizer</div>
+          <div class="client-card-role">Motion Graphics Director</div>
+          <div class="client-card-desc">래퍼 DP의 중국 투어 메인 트랙 콘서트 비주얼라이저를 디렉팅·디자인·제작했습니다. TouchDesigner 기반 모션 그래픽으로 공연용 비주얼의 리듬과 질감을 설계했습니다.</div>
+        </div>
+      </div>
+
+      <!-- Card 3: Our Hours — 슬라이더 (사진 여러 장) -->
+      <div class="client-card">
+        <div class="client-slider" data-slider>
+          <div class="client-slides">
+            <div class="client-slide">
+              <img src="assets/img/ourhours/ourhours-01.jpg" alt="Our Hours 1" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+              <div class="img-placeholder" style="display:none;">Our Hours — 01</div>
+            </div>
+            <div class="client-slide">
+              <img src="assets/img/ourhours/ourhours-02.jpg" alt="Our Hours 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+              <div class="img-placeholder" style="display:none;">Our Hours — 02</div>
+            </div>
+            <div class="client-slide">
+              <img src="assets/img/ourhours/ourhours-03.jpg" alt="Our Hours 3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+              <div class="img-placeholder" style="display:none;">Our Hours — 03</div>
+            </div>
+          </div>
+          <button class="client-slider-arrow prev" aria-label="이전">&#8249;</button>
+          <button class="client-slider-arrow next" aria-label="다음">&#8250;</button>
+          <div class="client-slide-count"><span class="cur">1</span>/<span class="total">3</span></div>
+          <div class="client-slider-dots"></div>
+        </div>
+        <div class="client-card-body">
+          <div class="client-card-name">Our Hours</div>
+          <div class="client-card-role">Product Visual / Brand Content</div>
+          <div class="client-card-desc">핸드크림 라인 런칭을 위한 비주얼 콘텐츠를 제작했습니다. 향별 콘셉트 기획, 제품 상세페이지용 촬영, 스튜디오 및 야외 촬영을 진행했습니다.</div>
+        </div>
+      </div>
+
+      <!-- Card 4: Holt Renfrew -->
+      <div class="client-card">
+        <div class="client-card-img">
+          <div class="img-placeholder" style="background:#0e0e0e;color:rgba(200,200,200,0.12);">Holt Renfrew × Andras</div>
+        </div>
+        <div class="client-card-body">
+          <div class="client-card-name">Holt Renfrew × Andras</div>
+          <div class="client-card-role">Production Assistant, Art Team</div>
+          <div class="client-card-desc">Holt Renfrew × Andras 프로덕션에서 아트팀 어시스턴트로 참여했습니다. 현장 세팅, 소품 및 아트 요소 정리, 촬영 진행을 지원했습니다.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- HIDDEN YOUTUBE PLAYER (controlled by floating widget)      -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div id="yt-iframe-wrap" aria-hidden="true">
+  <div id="yt-player"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- PERSONAL PROJECTS                                          -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="personal-projects">
+  <div class="personal-inner">
+
+    <p class="personal-section-label section-fade">04 — 개인 프로젝트</p>
+    <h2 class="personal-title section-fade">Personal<br>Projects</h2>
+
+    <div class="personal-grid section-fade">
+
+      <!-- 카드 1: 자유롭게 채워주세요 -->
+      <div class="personal-card is-placeholder">
+        <div class="personal-card-media">
+          <img src="assets/img/personal/personal-01.jpg" alt=""
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;background:#111;">개인 프로젝트 01</div>
+        </div>
+        <div class="personal-card-body">
+          <span class="personal-card-category">개인 작업</span>
+          <div class="personal-card-title">Archive 01</div>
+          <div class="personal-card-desc">이미지와 설명을 업데이트할 개인 프로젝트 슬롯입니다.</div>
+          <span class="personal-card-year">2025</span>
+        </div>
+      </div>
+
+      <!-- 카드 2 -->
+      <div class="personal-card is-placeholder">
+        <div class="personal-card-media">
+          <img src="assets/img/personal/personal-02.jpg" alt=""
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;background:#111;">개인 프로젝트 02</div>
+        </div>
+        <div class="personal-card-body">
+          <span class="personal-card-category">개인 작업</span>
+          <div class="personal-card-title">Archive 02</div>
+          <div class="personal-card-desc">비주얼, 사운드, 리서치 등 개인 작업을 넣을 수 있는 자리입니다.</div>
+          <span class="personal-card-year">2025</span>
+        </div>
+      </div>
+
+      <!-- 카드 3 -->
+      <div class="personal-card is-placeholder">
+        <div class="personal-card-media">
+          <img src="assets/img/personal/personal-03.jpg" alt=""
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-placeholder" style="display:none;background:#111;">개인 프로젝트 03</div>
+        </div>
+        <div class="personal-card-body">
+          <span class="personal-card-category">개인 작업</span>
+          <div class="personal-card-title">Archive 03</div>
+          <div class="personal-card-desc">실제 작업명과 자료가 들어오기 전까지 낮은 대비로 표시됩니다.</div>
+          <span class="personal-card-year">2024</span>
+        </div>
+      </div>
+
+      <!-- + 추가 카드 슬롯 -->
+      <div class="personal-card add-card">
+        <div class="add-icon">+</div>
+        <span>프로젝트 추가</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- CONTACT                                                    -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="contact">
+  <div class="contact-bg-name" aria-hidden="true">Yebin Song</div>
+  <div class="contact-inner section-fade">
+    <span class="contact-label">05 — 연락처</span>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:yebbyseye@gmail.com">yebbyseye@gmail.com</a>
+      <div class="contact-divider"></div>
+      <a class="contact-link" href="https://instagram.com/irisyebini" target="_blank" rel="noopener">@irisyebini</a>
+      <div class="contact-divider"></div>
+      <a class="contact-link" href="tel:+821095450443">+82-10-9545-0443</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SCRIPTS                                                    -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+'use strict';
+
+/* ═══════════════════════════════════════════
+   UTILS
+═══════════════════════════════════════════ */
+const isMobile = () => window.matchMedia('(max-width: 768px)').matches || ('ontouchstart' in window);
+const qs = (sel, ctx = document) => ctx.querySelector(sel);
+const qsa = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+
+/* ═══════════════════════════════════════════
+   CUSTOM CURSOR
+═══════════════════════════════════════════ */
+if (!isMobile()) {
+  const dot = qs('#cursor-dot');
+  const ring = qs('#cursor-ring');
+  const cross = qs('#cursor-crosshair');
+
+  let mx = -100, my = -100;
+  let rx = -100, ry = -100;
+  let lastMx = -100, lastMy = -100;
+  let velocity = 0;
+  const trails = [];
+  const TRAIL_COUNT = 6;
+
+  // Create trail elements
+  for (let i = 0; i < TRAIL_COUNT; i++) {
+    const t = document.createElement('div');
+    t.className = 'cursor-trail';
+    document.body.appendChild(t);
+    trails.push({ el: t, x: -100, y: -100, life: 0 });
+  }
+
+  document.addEventListener('mousemove', e => {
+    const dx = e.clientX - mx;
+    const dy = e.clientY - my;
+    velocity = Math.sqrt(dx*dx + dy*dy);
+    lastMx = mx; lastMy = my;
+    mx = e.clientX; my = e.clientY;
+
+    dot.style.left = mx + 'px';
+    dot.style.top = my + 'px';
+    cross.style.left = mx + 'px';
+    cross.style.top = my + 'px';
+
+    // glitch trail on fast movement
+    if (velocity > 14) {
+      const t = trails[Math.floor(Math.random() * TRAIL_COUNT)];
+      t.x = mx + (Math.random() - 0.5) * 8;
+      t.y = my + (Math.random() - 0.5) * 8;
+      t.life = 1;
+      t.el.style.left = t.x + 'px';
+      t.el.style.top = t.y + 'px';
+      t.el.style.opacity = '0.4';
+      setTimeout(() => { t.el.style.opacity = '0'; }, 120);
+    }
+  });
+
+  // Smooth ring follow
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Magnetic hover on interactive elements
+  const magnetTargets = qsa('a, button, .value-card-header, .expand-trigger, .client-card, .szg-grid-item, .release-card, .ps-work-item, .szg-season');
+
+  magnetTargets.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      document.body.classList.add('cursor-hover');
+    });
+    el.addEventListener('mouseleave', () => {
+      document.body.classList.remove('cursor-hover');
+      el.style.transform = '';
+    });
+    el.addEventListener('mousemove', e => {
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) * 0.08;
+      const dy = (e.clientY - cy) * 0.08;
+      el.style.transform = `translate(${dx}px, ${dy}px)`;
+      el.style.transition = 'transform 0.2s ease';
+    });
+  });
+}
+
+/* ═══════════════════════════════════════════
+   YOUTUBE AUDIO PLAYER ENGINE
+   ─────────────────────────────────────────
+   ★ 사용 방법:
+     1. 아래 YT_PLAYLIST_ID 에 본인 YouTube
+        플레이리스트 ID를 붙여넣으세요.
+        (URL에서 list= 뒤의 값)
+     2. TRACKS 배열에 트랙 제목/아티스트 입력.
+     3. 개별 영상 ID도 videoId로 지정 가능.
+═══════════════════════════════════════════ */
+
+// ★ 여기에 YouTube 플레이리스트 ID 입력
+const YT_PLAYLIST_ID = 'PL9ZKuObhWaez9G3Z0aMEiB_u1KOchFJDI';
+
+// 트랙 정보 (제목, 아티스트, 유튜브 영상 ID)
+// videoId 없으면 플레이리스트 순서로 재생
+const TRACKS = [
+  { title: 'metamorphosis',      artist: 'mael',        videoId: '' },
+  { title: 'two sides',          artist: 'mael',        videoId: '' },
+  { title: 'my truth',           artist: 'mael',        videoId: '' },
+  { title: 'Cheap Labour',       artist: 'Path Seven',  videoId: '' },
+  { title: 'Nice 2 Kno U',       artist: 'Path Seven',  videoId: '' },
+  { title: 'Shoulder Shrug',     artist: 'Path Seven',  videoId: '' },
+  { title: 'Peace Sign',         artist: 'DP',          videoId: '' },
+];
+
+let ytPlayer = null;
+let ytReady  = false;
+let ytPlaying = false;
+let ytCurrentIdx = 0;
+let ytEnabled = false;
+let ytPendingPlay = false;
+let ytUsingEmbedFallback = false;
+let ytLiveTitle = '';
+let ytLiveArtist = '';
+let ytEmbedListenTimer = null;
+
+function hasYTPlaylist() {
+  return YT_PLAYLIST_ID && YT_PLAYLIST_ID !== 'YOUR_PLAYLIST_ID_HERE';
+}
+
+function loadYouTubeApi() {
+  if (window.YT?.Player) {
+    window.onYouTubeIframeAPIReady();
+    return;
+  }
+  const tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  tag.async = true;
+  const firstScript = document.getElementsByTagName('script')[0];
+  firstScript.parentNode.insertBefore(tag, firstScript);
+}
+
+// YouTube IFrame API callback
+window.onYouTubeIframeAPIReady = function() {
+  const usePlaylist = hasYTPlaylist();
+  const firstVideoId = TRACKS.find(t => t.videoId)?.videoId || '';
+
+  if (!usePlaylist && !firstVideoId) {
+    ytReady = false;
+    updateNowPlaying();
+    return;
+  }
+
+  const playerVars = {
+    controls: 0,
+    disablekb: 1,
+    fs: 0,
+    iv_load_policy: 3,
+    modestbranding: 1,
+    rel: 0,
+    autoplay: 0,
+    playsinline: 1,
+    origin: window.location.origin,
+  };
+  if (usePlaylist) playerVars.listType = 'playlist', playerVars.list = YT_PLAYLIST_ID;
+
+  ytPlayer = new YT.Player('yt-player', {
+    height: '1',
+    width: '1',
+    videoId: firstVideoId || undefined,
+    playerVars,
+    events: {
+      onReady: onYTReady,
+      onStateChange: onYTStateChange,
+      onError: onYTError,
+    },
+  });
+};
+
+function onYTReady(e) {
+  ytPlayer = e?.target || ytPlayer;
+  ytReady = true;
+  try { ytPlayer?.setVolume?.(40); } catch(e) {}
+  if (hasYTPlaylist()) {
+    try {
+      ytPlayer?.cuePlaylist?.({ listType: 'playlist', list: YT_PLAYLIST_ID, index: ytCurrentIdx });
+    } catch(e) {}
+  }
+  updateNowPlaying();
+  if (ytPendingPlay) {
+    ytPendingPlay = false;
+    enableSound();
+  }
+}
+
+function onYTError() {
+  setNowPlayingText('YouTube 플레이리스트를 불러오지 못했어요');
+}
+
+loadYouTubeApi();
+
+function setNowPlayingText(text) {
+  const nameEl = qs('#playlist-track-name');
+  if (!nameEl) return;
+  let marquee = nameEl.querySelector('.track-marquee');
+  if (!marquee) {
+    marquee = document.createElement('span');
+    marquee.className = 'track-marquee';
+    nameEl.textContent = '';
+    nameEl.appendChild(marquee);
+  }
+  marquee.textContent = text;
+  nameEl.classList.toggle('is-playing', ytPlaying || ytUsingEmbedFallback);
+}
+
+function cleanYouTubeArtist(name) {
+  return String(name || '')
+    .replace(/\s+-\s+Topic$/i, '')
+    .replace(/\s+VEVO$/i, '')
+    .trim();
+}
+
+function getPlaylistEmbedSrc(index = 0, autoplay = true) {
+  const params = new URLSearchParams({
+    list: YT_PLAYLIST_ID,
+    autoplay: autoplay ? '1' : '0',
+    controls: '0',
+    disablekb: '1',
+    fs: '0',
+    iv_load_policy: '3',
+    modestbranding: '1',
+    rel: '0',
+    playsinline: '1',
+    enablejsapi: '1',
+    origin: window.location.origin,
+    index: String(index),
+  });
+  return `https://www.youtube.com/embed/videoseries?${params.toString()}`;
+}
+
+function startPlaylistEmbed(index = ytCurrentIdx) {
+  if (!hasYTPlaylist()) return;
+  ytUsingEmbedFallback = true;
+  ytPlaying = true;
+  ytEnabled = true;
+  ytCurrentIdx = ((index % TRACKS.length) + TRACKS.length) % TRACKS.length;
+  ytLiveTitle = '';
+  ytLiveArtist = '';
+  const wrap = qs('#yt-iframe-wrap');
+  if (wrap) {
+    wrap.innerHTML = '';
+    const iframe = document.createElement('iframe');
+    iframe.id = 'yt-player';
+    iframe.title = 'YouTube playlist';
+    iframe.width = '320';
+    iframe.height = '180';
+    iframe.src = getPlaylistEmbedSrc(ytCurrentIdx, true);
+    iframe.allow = 'autoplay; encrypted-media';
+    iframe.allowFullscreen = true;
+    iframe.addEventListener('load', beginPlaylistEmbedSync);
+    wrap.appendChild(iframe);
+  }
+  playlistBtn?.classList.remove('muted');
+  soundOnBtn?.classList.add('active');
+  soundOffBtn?.classList.remove('active');
+  qs('#yt-wave-icon')?.classList.add('playing');
+  const pp = qs('#yt-play-pause-btn'); if (pp) pp.innerHTML = '&#10074;&#10074;';
+  updateNowPlaying();
+}
+
+function beginPlaylistEmbedSync() {
+  if (ytEmbedListenTimer) clearInterval(ytEmbedListenTimer);
+  sendPlaylistEmbedEvent('listening');
+  sendPlaylistEmbedCommand('getVideoData');
+  ytEmbedListenTimer = setInterval(() => {
+    if (!ytUsingEmbedFallback) {
+      clearInterval(ytEmbedListenTimer);
+      ytEmbedListenTimer = null;
+      return;
+    }
+    sendPlaylistEmbedEvent('listening');
+    sendPlaylistEmbedCommand('getVideoData');
+  }, 1200);
+}
+
+function sendPlaylistEmbedEvent(event) {
+  const iframe = qs('#yt-iframe-wrap iframe');
+  if (!iframe?.contentWindow) return false;
+  iframe.contentWindow.postMessage(JSON.stringify({ event, id: 'yt-player' }), '*');
+  return true;
+}
+
+function sendPlaylistEmbedCommand(func) {
+  const iframe = qs('#yt-iframe-wrap iframe');
+  if (!iframe?.contentWindow) return false;
+  iframe.contentWindow.postMessage(JSON.stringify({
+    event: 'command',
+    func,
+    args: [],
+  }), '*');
+  return true;
+}
+
+function stopPlaylistEmbed() {
+  ytUsingEmbedFallback = false;
+  ytPlaying = false;
+  ytLiveTitle = '';
+  ytLiveArtist = '';
+  if (ytEmbedListenTimer) {
+    clearInterval(ytEmbedListenTimer);
+    ytEmbedListenTimer = null;
+  }
+  const wrap = qs('#yt-iframe-wrap');
+  if (wrap) wrap.innerHTML = '<div id="yt-player"></div>';
+}
+
+window.addEventListener('message', (event) => {
+  if (!String(event.origin || '').includes('youtube.com')) return;
+  let data = event.data;
+  if (typeof data === 'string') {
+    try { data = JSON.parse(data); } catch(e) { return; }
+  }
+  const info = data?.info;
+  if (!info) return;
+  const title = info.videoData?.title || info.videoData?.video_title || '';
+  const artist = cleanYouTubeArtist(info.videoData?.author || info.videoData?.video_author || '');
+  if (title) {
+    ytLiveTitle = title;
+    ytLiveArtist = artist;
+    updateNowPlaying();
+  }
+  if (typeof info.playlistIndex === 'number' && info.playlistIndex >= 0) {
+    ytCurrentIdx = info.playlistIndex;
+    updateNowPlaying();
+  }
+  if (typeof info.currentIndex === 'number' && info.currentIndex >= 0) {
+    ytCurrentIdx = info.currentIndex;
+    updateNowPlaying();
+  }
+});
+
+function onYTStateChange(e) {
+  const S = YT.PlayerState;
+  if (e.data === S.PLAYING) {
+    ytPlaying = true;
+    ytEnabled = true;
+    playlistBtn?.classList.remove('muted');
+    soundOnBtn?.classList.add('active');
+    soundOffBtn?.classList.remove('active');
+    updateNowPlaying();
+    // YT title may not be ready instantly on auto-advance — refresh shortly after
+    setTimeout(updateNowPlaying, 600);
+    setTimeout(updateNowPlaying, 1500);
+    qs('#yt-wave-icon')?.classList.add('playing');
+    const pp = qs('#yt-play-pause-btn'); if (pp) pp.innerHTML = '&#10074;&#10074;';
+  } else if (e.data === S.PAUSED || e.data === S.ENDED) {
+    ytPlaying = false;
+    qs('#yt-wave-icon')?.classList.remove('playing');
+    const pp = qs('#yt-play-pause-btn'); if (pp) pp.innerHTML = '&#9654;';
+    // a real YouTube playlist auto-advances on its own; only force-advance
+    // when we're driving individual videoIds
+    if (e.data === S.ENDED && TRACKS.some(t => t.videoId)) ytNextTrack();
+  }
+}
+
+function jumpToTrack(i) {
+  ytCurrentIdx = ((i % TRACKS.length) + TRACKS.length) % TRACKS.length;
+  const vid = TRACKS[ytCurrentIdx]?.videoId;
+  if (vid && ytPlayer) {
+    try { ytPlayer.loadVideoById(vid); } catch(e) {}
+  } else if (ytPlayer) {
+    try { ytPlayer.playVideoAt(ytCurrentIdx); } catch(e) {}
+  }
+  if (!ytEnabled) enableSound();
+  updateNowPlaying();
+}
+
+function updateNowPlaying() {
+  // sync our index with the live YouTube playlist position when available
+  try {
+    const pIdx = ytPlayer?.getPlaylistIndex?.();
+    if (typeof pIdx === 'number' && pIdx >= 0) ytCurrentIdx = pIdx;
+  } catch(e) {}
+
+  // prefer the real YouTube video title (works with a connected playlist),
+  // fall back to the curated TRACKS list
+  let ytTitle = '';
+  let ytArtist = '';
+  try {
+    const data = ytPlayer?.getVideoData?.() || {};
+    ytTitle = data.title || '';
+    ytArtist = cleanYouTubeArtist(data.author || '');
+  } catch(e) {}
+
+  const track = TRACKS[ytCurrentIdx % TRACKS.length];
+  const fallback = ytUsingEmbedFallback ? 'YouTube 플레이리스트 제목 불러오는 중' : (track ? (track.artist ? `${track.title} — ${track.artist}` : track.title) : '재생 준비 중');
+  const liveTitle = ytTitle || ytLiveTitle;
+  const liveArtist = ytArtist || ytLiveArtist;
+  const nowTitle = liveTitle ? (liveArtist ? `${liveTitle} — ${liveArtist}` : liveTitle) : fallback;
+
+  // Now Playing line in the floating widget
+  setNowPlayingText(nowTitle);
+
+  // Up Next follows the connected YouTube playlist.
+  const plNext = qs('#pl-next-list');
+  if (ytUsingEmbedFallback && plNext) {
+    plNext.innerHTML = '';
+    const item = document.createElement('div');
+    item.className = 'pl-next-item';
+    item.textContent = '유튜브 플레이리스트 순서로 이동';
+    plNext.appendChild(item);
+    return;
+  }
+  if (plNext && TRACKS.length) {
+    plNext.innerHTML = '';
+    for (let n = 1; n <= 3; n++) {
+      const idx = (ytCurrentIdx + n) % TRACKS.length;
+      const t = TRACKS[idx];
+      const item = document.createElement('div');
+      item.className = 'pl-next-item';
+      item.textContent = t.artist ? `${t.title} — ${t.artist}` : t.title;
+      item.addEventListener('click', () => jumpToTrack(idx));
+      plNext.appendChild(item);
+    }
+  }
+}
+
+function ytPlay() {
+  if (!ytReady || !ytPlayer) return;
+  try { ytPlayer.playVideo(); } catch(e) {}
+}
+
+function ytPause() {
+  if (!ytReady || !ytPlayer) return;
+  try { ytPlayer.pauseVideo(); } catch(e) {}
+}
+
+function ytNextTrack() {
+  if (ytUsingEmbedFallback) {
+    sendPlaylistEmbedCommand('nextVideo');
+    ytLiveTitle = '';
+    setTimeout(() => sendPlaylistEmbedCommand('getVideoData'), 400);
+    setTimeout(() => sendPlaylistEmbedCommand('getVideoData'), 1200);
+    setTimeout(() => sendPlaylistEmbedCommand('getVideoData'), 2200);
+    updateNowPlaying();
+    return;
+  }
+  ytCurrentIdx = (ytCurrentIdx + 1) % Math.max(TRACKS.length, 1);
+  const vid = TRACKS[ytCurrentIdx]?.videoId;
+  if (vid && ytPlayer) {
+    try { ytPlayer.loadVideoById(vid); } catch(e) {}
+  } else if (ytPlayer) {
+    try { ytPlayer.nextVideo(); } catch(e) {}
+  }
+  updateNowPlaying();
+}
+
+function ytPrevTrack() {
+  if (ytUsingEmbedFallback) {
+    sendPlaylistEmbedCommand('previousVideo');
+    ytLiveTitle = '';
+    setTimeout(() => sendPlaylistEmbedCommand('getVideoData'), 400);
+    setTimeout(() => sendPlaylistEmbedCommand('getVideoData'), 1200);
+    setTimeout(() => sendPlaylistEmbedCommand('getVideoData'), 2200);
+    updateNowPlaying();
+    return;
+  }
+  ytCurrentIdx = (ytCurrentIdx - 1 + Math.max(TRACKS.length, 1)) % Math.max(TRACKS.length, 1);
+  const vid = TRACKS[ytCurrentIdx]?.videoId;
+  if (vid && ytPlayer) {
+    try { ytPlayer.loadVideoById(vid); } catch(e) {}
+  } else if (ytPlayer) {
+    try { ytPlayer.previousVideo(); } catch(e) {}
+  }
+  updateNowPlaying();
+}
+
+// ── PLAYLIST FLOATING BUTTON ──
+const playlistBtn  = qs('#playlist-btn');
+const soundOnBtn   = qs('#sound-on-btn');
+const soundOffBtn  = qs('#sound-off-btn');
+
+function enableSound() {
+  ytEnabled = true;
+  playlistBtn?.classList.remove('muted');
+  soundOnBtn?.classList.add('active');
+  soundOffBtn?.classList.remove('active');
+  if (!ytReady || !ytPlayer) {
+    ytPendingPlay = false;
+    startPlaylistEmbed(ytCurrentIdx);
+    return;
+  }
+  ytPlay();
+}
+
+function disableSound() {
+  ytEnabled = false;
+  if (ytUsingEmbedFallback) stopPlaylistEmbed();
+  playlistBtn?.classList.add('muted');
+  soundOnBtn?.classList.remove('active');
+  soundOffBtn?.classList.add('active');
+  ytPause();
+  qs('#yt-wave-icon')?.classList.remove('playing');
+}
+
+soundOnBtn?.addEventListener('click',  enableSound);
+soundOffBtn?.addEventListener('click', disableSound);
+
+// ── PLAYER CONTROLS ──
+qs('#yt-play-pause-btn')?.addEventListener('click', () => {
+  if (ytPlaying) disableSound(); else enableSound();
+});
+qs('#yt-next-btn')?.addEventListener('click', ytNextTrack);
+qs('#yt-prev-btn')?.addEventListener('click', ytPrevTrack);
+
+// Floating widget: expand to show Now Playing / Up Next
+qs('#playlist-label-row')?.addEventListener('click', () => {
+  playlistBtn?.classList.toggle('expanded');
+});
+
+// Populate queue panels on load
+updateNowPlaying();
+
+function getCurrentSection() {
+  const sections = qsa('section, #about-section-wrap');
+  let found = null;
+  sections.forEach(s => {
+    const rect = s.getBoundingClientRect();
+    if (rect.top <= window.innerHeight * 0.5 && rect.bottom > 0) {
+      found = s.id;
+    }
+  });
+  return found;
+}
+
+/* ═══════════════════════════════════════════
+   GSAP / SCROLL ANIMATIONS
+═══════════════════════════════════════════ */
+gsap.registerPlugin(ScrollTrigger);
+
+// Hero title character split reveal
+function splitChars(el) {
+  const text = el.textContent;
+  el.innerHTML = text.split('').map(c =>
+    c === ' ' ? ' ' : `<span class="char">${c}</span>`
+  ).join('');
+  return qsa('.char', el);
+}
+
+const heroTitle = qs('#hero-title');
+if (heroTitle) {
+  const chars = splitChars(heroTitle);
+  gsap.to(chars, {
+    opacity: 1,
+    y: 0,
+    duration: 0.7,
+    stagger: 0.04,
+    ease: 'power3.out',
+    delay: 0.3,
+  });
+}
+
+// Hero elements entrance
+gsap.from('#hero-asterisk', { opacity: 0, scale: 0.6, duration: 1.2, ease: 'power3.out', delay: 0.1 });
+gsap.from('#hero-subtitle', { opacity: 0, y: 16, duration: 1, ease: 'power3.out', delay: 0.9 });
+gsap.from('#ticker-wrap', { opacity: 0, duration: 0.8, ease: 'none', delay: 1.1 });
+gsap.from('#scroll-indicator', { opacity: 0, y: 10, duration: 0.8, ease: 'none', delay: 1.4 });
+
+// Section fade-in on scroll
+qsa('.section-fade').forEach(el => {
+  ScrollTrigger.create({
+    trigger: el,
+    start: 'top 85%',
+    onEnter: () => el.classList.add('in-view'),
+  });
+});
+
+// Timeline items stagger on scroll
+qsa('.timeline-item').forEach((item, i) => {
+  ScrollTrigger.create({
+    trigger: item,
+    start: 'top 88%',
+    onEnter: () => {
+      setTimeout(() => item.classList.add('visible'), i * 100);
+    },
+  });
+});
+
+// SZG stat numbers count up
+function countUp(el, target, duration = 1600) {
+  const isFloat = target % 1 !== 0;
+  let start = null;
+  function step(timestamp) {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = isFloat ? (eased * target).toFixed(1) : Math.floor(eased * target);
+    el.textContent = current + (el.dataset.suffix || '');
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+qsa('.szg-stat-number').forEach(el => {
+  const raw = el.textContent.trim();
+  const num = parseFloat(raw.replace(/[^0-9.]/g, ''));
+  const suffix = raw.replace(/[0-9.]/g, '');
+  if (!isNaN(num)) {
+    el.dataset.suffix = suffix;
+    el.textContent = '0' + suffix;
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 80%',
+      once: true,
+      onEnter: () => countUp(el, num),
+    });
+  }
+});
+
+// Nav active section tracking
+const navLinks = qsa('#nav-links a');
+const allSections = qsa('section');
+
+const sectionObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const id = entry.target.id;
+    navLinks.forEach(a => {
+      a.classList.toggle('nav-active', a.dataset.section === id || a.href.includes('#' + id));
+    });
+    // (section-based audio handled by YouTube player)
+  });
+}, { threshold: 0.3 });
+
+allSections.forEach(s => sectionObserver.observe(s));
+
+// Nav visibility on scroll
+const nav = qs('#nav');
+let lastScrollY = 0;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (y > 80) {
+    nav.classList.add('active');
+  } else {
+    nav.classList.remove('active');
+  }
+  lastScrollY = y;
+}, { passive: true });
+
+/* ═══════════════════════════════════════════
+   EXPANDABLE CARDS
+═══════════════════════════════════════════ */
+qsa('.value-card-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const card = header.parentElement;
+    card.classList.toggle('open');
+  });
+});
+
+qsa('.expand-trigger').forEach(trigger => {
+  trigger.addEventListener('click', () => {
+    const block = trigger.parentElement;
+    block.classList.toggle('open');
+  });
+});
+
+/* ═══════════════════════════════════════════
+   VIDEO: try autoplay, handle error silently
+═══════════════════════════════════════════ */
+qsa('video').forEach(vid => {
+  vid.muted = true;
+  vid.play().catch(() => {});
+});
+
+/* ═══════════════════════════════════════════
+   GSAP: clip-path image reveals
+═══════════════════════════════════════════ */
+qsa('.szg-grid-item, .release-card, .client-card, .ps-work-item').forEach(el => {
+  gsap.from(el, {
+    scrollTrigger: {
+      trigger: el,
+      start: 'top 90%',
+    },
+    clipPath: 'inset(100% 0 0 0)',
+    duration: 0.9,
+    ease: 'power3.out',
+    clearProps: 'clipPath',
+  });
+});
+
+/* ═══════════════════════════════════════════
+   GSAP: section title reveals
+═══════════════════════════════════════════ */
+// NOTE: section titles are revealed via the .section-fade mechanism
+// (Intersection/ScrollTrigger adds .in-view). A separate GSAP opacity
+// tween here conflicted with that and left titles stuck at opacity 0,
+// so title reveal is intentionally handled by .section-fade only.
+qsa('.szg-title, .apb-title').forEach(el => {
+  if (!el.classList.contains('section-fade')) {
+    el.classList.add('section-fade');
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 88%',
+      onEnter: () => el.classList.add('in-view'),
+    });
+  }
+});
+
+/* ═══════════════════════════════════════════
+   ROBUSTNESS: recompute trigger positions once
+   images/fonts settle, and a failsafe so any
+   element already in view can never stay hidden.
+═══════════════════════════════════════════ */
+function revealInView() {
+  qsa('.section-fade').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight * 0.92 && r.bottom > 0) {
+      el.classList.add('in-view');
+    }
+  });
+}
+window.addEventListener('load', () => {
+  if (window.ScrollTrigger) ScrollTrigger.refresh();
+  revealInView();
+});
+// fonts can shift layout after load
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(() => {
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+    revealInView();
+  });
+}
+// final safety net: nothing stays invisible
+setTimeout(revealInView, 2500);
+
+/* ═══════════════════════════════════════════
+   SMOOTH SCROLL for nav links
+═══════════════════════════════════════════ */
+qsa('#nav-links a').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      const target = qs(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  });
+});
+
+/* ═══════════════════════════════════════════
+   SZG — season expand toggle
+═══════════════════════════════════════════ */
+qsa('.szg-season').forEach(season => {
+  season.addEventListener('click', () => {
+    season.classList.toggle('open');
+  });
+});
+
+/* ═══════════════════════════════════════════
+   SZG — photo grid click-to-reveal caption
+═══════════════════════════════════════════ */
+qsa('.szg-grid-item').forEach(item => {
+  const title = item.dataset.capTitle;
+  const desc  = item.dataset.capDesc;
+  if (title || desc) {
+    // build caption overlay
+    const cap = document.createElement('div');
+    cap.className = 'szg-grid-caption';
+    cap.innerHTML = `<div class="cap-title">${title || ''}</div><div class="cap-desc">${desc || ''}</div>`;
+    item.appendChild(cap);
+    // build tap hint
+    const hint = document.createElement('div');
+    hint.className = 'tap-hint';
+    hint.textContent = 'i';
+    item.appendChild(hint);
+  }
+  item.addEventListener('click', () => {
+    item.classList.toggle('revealed');
+  });
+});
+
+/* ═══════════════════════════════════════════
+   CLIENT — photo sliders
+═══════════════════════════════════════════ */
+qsa('[data-slider]').forEach(slider => {
+  const track = slider.querySelector('.client-slides');
+  const slides = slider.querySelectorAll('.client-slide');
+  const prev = slider.querySelector('.prev');
+  const next = slider.querySelector('.next');
+  const curEl = slider.querySelector('.cur');
+  const dotsWrap = slider.querySelector('.client-slider-dots');
+  let idx = 0;
+  const total = slides.length;
+
+  // build dots
+  if (dotsWrap) {
+    slides.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', (e) => { e.stopPropagation(); go(i); });
+      dotsWrap.appendChild(d);
+    });
+  }
+
+  function go(n) {
+    idx = (n + total) % total;
+    track.style.transform = `translateX(-${idx * 100}%)`;
+    if (curEl) curEl.textContent = idx + 1;
+    if (dotsWrap) {
+      dotsWrap.querySelectorAll('.dot').forEach((d, i) =>
+        d.classList.toggle('active', i === idx));
+    }
+  }
+
+  prev?.addEventListener('click', (e) => { e.stopPropagation(); go(idx - 1); });
+  next?.addEventListener('click', (e) => { e.stopPropagation(); go(idx + 1); });
+});
+
+/* ═══════════════════════════════════════════
+   SCROLL PROGRESS — top bar + side dots
+═══════════════════════════════════════════ */
+const progressBar = qs('#scroll-progress-bar');
+const sdItems = qsa('#scroll-dots .sd-item');
+
+// click dots to scroll
+sdItems.forEach(item => {
+  item.addEventListener('click', () => {
+    const target = qs('#' + item.dataset.target);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+function updateScrollProgress() {
+  const scrollTop = window.scrollY;
+  const docH = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docH > 0 ? (scrollTop / docH) * 100 : 0;
+  if (progressBar) progressBar.style.width = pct + '%';
+
+  // active dot
+  let activeId = null;
+  sdItems.forEach(item => {
+    const sec = qs('#' + item.dataset.target);
+    if (!sec) return;
+    const rect = sec.getBoundingClientRect();
+    if (rect.top <= window.innerHeight * 0.5 && rect.bottom > window.innerHeight * 0.2) {
+      activeId = item.dataset.target;
+    }
+  });
+  sdItems.forEach(item => {
+    item.classList.toggle('active', item.dataset.target === activeId);
+  });
+}
+window.addEventListener('scroll', updateScrollProgress, { passive: true });
+window.addEventListener('resize', updateScrollProgress);
+updateScrollProgress();
+
+</script>
+</body>
+</html>
