@@ -2237,7 +2237,7 @@ section {
 }
 
 .contact-link {
-  font-family: var(--mono);
+  font-family: var(--serif);
   font-size: clamp(18px, 2.4vw, 30px);
   font-weight: 400;
   font-style: normal;
@@ -2828,6 +2828,26 @@ section {
 .interlude-statcards .isc b { font-family: var(--serif); font-size: 34px; font-weight: 700; color: var(--accent-szg); line-height: 1; display: block; }
 .interlude-statcards .isc span { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(240,237,230,0.5); margin-top: 7px; display: block; }
 @media (max-width: 600px) { .interlude-content { padding: 0 22px 56px; } #interlude { min-height: 88vh; } }
+
+/* ─── VIDEO MODAL (DP 등 비디오 카드) ──────────────────────── */
+.client-card-img.video-trigger { cursor: pointer; }
+.video-play {
+  position: absolute; inset: 0; margin: auto; width: 56px; height: 56px;
+  border: 1px solid rgba(255,255,255,0.75); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 16px; padding-left: 3px;
+  background: rgba(0,0,0,0.4); z-index: 2; transition: transform 0.4s var(--ease-out), background 0.3s;
+}
+.client-card-img.video-trigger:hover .video-play { background: rgba(0,0,0,0.65); transform: scale(1.08); }
+.video-modal { position: fixed; inset: 0; z-index: 100000; background: rgba(6,6,6,0.95); display: none; align-items: center; justify-content: center; padding: 40px; }
+.video-modal.open { display: flex; }
+.video-modal-stage { max-width: min(1100px, 92vw); width: 100%; }
+.video-modal-stage video { width: 100%; max-height: 84vh; background: #000; display: block; }
+.video-modal-missing { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: rgba(240,237,230,0.4); text-align: center; padding: 80px 20px; border: 1px solid rgba(240,237,230,0.15); line-height: 1.8; }
+.video-modal-close { position: absolute; top: 22px; right: 28px; width: 40px; height: 40px; border: 1px solid rgba(240,237,230,0.3); background: transparent; color: #fff; font-size: 18px; cursor: pointer; }
+.video-modal-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border: 1px solid rgba(240,237,230,0.3); background: rgba(0,0,0,0.5); color: #fff; font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; }
+.video-modal-nav.prev { left: 24px; } .video-modal-nav.next { right: 24px; }
+.video-modal-count { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; color: rgba(240,237,230,0.6); }
 
 </style>
 </head>
@@ -3641,11 +3661,12 @@ section {
         </div>
       </div>
 
-      <!-- Card 2: DP -->
+      <!-- Card 2: DP — 클릭 시 비디오 모달 -->
       <div class="client-card">
-        <div class="client-card-img">
+        <div class="client-card-img video-trigger" data-videos="assets/video/dp/dp-visualizer-01.mp4|assets/video/dp/dp-visualizer-02.mp4" role="button" tabindex="0" aria-label="DP 비주얼라이저 영상 보기">
           <img src="assets/img/dp/dp-visual.jpg" alt="DP" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="img-placeholder" style="display:none;background:#0e0e0e">DP</div>
+          <span class="video-play">▶</span>
         </div>
         <div class="client-card-body">
           <div class="client-card-name">[DP] — Concert Tour Visualizer</div>
@@ -4813,6 +4834,54 @@ function updateScrollProgress() {
 window.addEventListener('scroll', updateScrollProgress, { passive: true });
 window.addEventListener('resize', updateScrollProgress);
 updateScrollProgress();
+
+/* ═══════════════════════════════════════════
+   VIDEO MODAL — 카드 클릭 시 큰 영상 (DP 등)
+═══════════════════════════════════════════ */
+(function(){
+  const triggers = qsa('.video-trigger');
+  if (!triggers.length) return;
+  let modal = null, vidState = { vids: [], i: 0 };
+  function ensure(){
+    if (modal) return modal;
+    modal = document.createElement('div');
+    modal.className = 'video-modal';
+    modal.innerHTML = '<button class="video-modal-close" aria-label="닫기">×</button>'
+      + '<button class="video-modal-nav prev" aria-label="이전">‹</button>'
+      + '<div class="video-modal-stage"></div>'
+      + '<button class="video-modal-nav next" aria-label="다음">›</button>'
+      + '<div class="video-modal-count"></div>';
+    document.body.appendChild(modal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeV(); });
+    modal.querySelector('.video-modal-close').addEventListener('click', closeV);
+    modal.querySelector('.prev').addEventListener('click', () => moveV(-1));
+    modal.querySelector('.next').addEventListener('click', () => moveV(1));
+    document.addEventListener('keydown', e => {
+      if (!modal.classList.contains('open')) return;
+      if (e.key === 'Escape') closeV();
+      if (e.key === 'ArrowLeft') moveV(-1);
+      if (e.key === 'ArrowRight') moveV(1);
+    });
+    return modal;
+  }
+  function renderV(){
+    const m = ensure(), stage = m.querySelector('.video-modal-stage'), src = vidState.vids[vidState.i];
+    stage.innerHTML = '<video controls autoplay playsinline src="'+src+'"></video>'
+      + '<div class="video-modal-missing" style="display:none;">영상 파일을 기다리는 중입니다.<br>'+src+'</div>';
+    const v = stage.querySelector('video');
+    v.addEventListener('error', () => { v.style.display='none'; stage.querySelector('.video-modal-missing').style.display='block'; });
+    m.querySelector('.video-modal-count').textContent = vidState.vids.length > 1 ? (vidState.i+1)+' / '+vidState.vids.length : '';
+    m.querySelectorAll('.video-modal-nav').forEach(n => n.style.display = vidState.vids.length > 1 ? 'flex' : 'none');
+  }
+  function openV(vids){ if(!vids.length) return; vidState = { vids, i: 0 }; ensure().classList.add('open'); document.body.style.overflow='hidden'; renderV(); }
+  function closeV(){ if(!modal) return; modal.classList.remove('open'); document.body.style.overflow=''; const v = modal.querySelector('video'); if (v) v.pause(); }
+  function moveV(d){ const t = vidState.vids.length; if (t < 2) return; vidState.i = (vidState.i + d + t) % t; renderV(); }
+  triggers.forEach(t => {
+    const vids = (t.dataset.videos || '').split('|').map(s=>s.trim()).filter(Boolean);
+    t.addEventListener('click', () => openV(vids));
+    t.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openV(vids); } });
+  });
+})();
 
 </script>
 </body>
