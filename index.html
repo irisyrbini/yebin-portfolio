@@ -53,7 +53,7 @@ img:hover { filter: saturate(0.95) sepia(0.05); }
 /* ─── TYPE CALIBRATION ──────────────────────────────────────── */
 .section-label,
 .about-section-label, .mael-section-label, .ps-section-label,
-.apb-section-label, .client-section-label, .add-section-label,
+.client-section-label, .add-section-label,
 .personal-section-label, .playlist-section-label,
 .szg-handle, .szg-collabs, .szg-funded,
 .szg-stat-label, .timeline-role-tag, .track-role, .track-year,
@@ -61,14 +61,14 @@ img:hover { filter: saturate(0.95) sepia(0.05); }
 .expand-trigger span, .contact-label,
 .skill-tag, .stat-label, .tag,
 #nav-links li a, #playlist-word,
-.apb-role, .ps-section-label,
+.ps-section-label,
 .release-title, .timeline-year,
 .szg-season-year, .planning-list li,
 .personal-card-category, .personal-card-year,
 .award-title, .mael-detail-label,
 .track-artist { font-size: 15px; }
 
-.szg-desc, .apb-desc,
+.szg-desc,
 .client-card-desc, .value-card-body p,
 .timeline-desc, .playlist-desc,
 .ps-work-desc, .personal-card-desc,
@@ -963,18 +963,19 @@ section {
 }
 .current-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 3px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
 }
 .current-card {
-  min-height: 420px;
+  min-height: 520px;
   border: 1px solid rgba(240,237,230,0.1);
   background: rgba(240,237,230,0.018);
-  padding: 22px;
+  padding: 26px;
   display: flex;
   flex-direction: column;
   transition: border-color 0.4s, background 0.4s, transform 0.4s var(--ease-out);
 }
+.current-card.is-wide { grid-column: span 2; min-height: 440px; }
 .current-card:hover {
   border-color: rgba(170,255,71,0.42);
   background: rgba(170,255,71,0.025);
@@ -1015,12 +1016,59 @@ section {
   color: rgba(240,237,230,0.68);
   margin-bottom: 22px;
 }
+.case-fields,
 .current-scope {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-top: auto;
+}
+.case-field {
+  border-top: 1px solid rgba(240,237,230,0.08);
+  padding-top: 10px;
+}
+.case-field b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(170,255,71,0.72);
+  margin-bottom: 5px;
+}
+.case-field span {
+  display: block;
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(240,237,230,0.68);
+}
+.case-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 36px 0 56px;
+}
+.case-summary-card {
+  border: 1px solid rgba(240,237,230,0.12);
+  background: rgba(240,237,230,0.02);
+  padding: 22px;
+  min-height: 180px;
+}
+.case-summary-card b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(170,255,71,0.72);
+  margin-bottom: 12px;
+}
+.case-summary-card span {
+  display: block;
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(240,237,230,0.66);
 }
 .current-scope li {
   font-size: 12px;
@@ -1522,7 +1570,7 @@ section {
   margin-bottom: 60px;
 }
 
-/* shared big "Artist Project" opener for mael / path seven / apb */
+/* shared big "Artist Project" opener for mael / path seven */
 .artist-opener-title {
   font-family: var(--serif);
   font-size: clamp(48px, 7vw, 100px);
@@ -1873,97 +1921,6 @@ section {
   letter-spacing: 0.12em;
   line-height: 1.7;
   color: rgba(240,237,230,0.4);
-}
-
-/* APB */
-#apb {
-  padding: 100px 40px;
-  background: #0a0a0a;
-}
-.apb-inner {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 80px;
-  align-items: center;
-}
-.apb-section-label {
-  font-family: var(--mono);
-  font-size: 14px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(200,200,200,0.5);
-  margin-bottom: 16px;
-}
-.apb-title {
-  font-family: var(--serif);
-  font-size: clamp(56px, 7vw, 90px);
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  line-height: 0.9;
-  color: var(--accent-client);
-  margin-bottom: 24px;
-}
-.apb-role {
-  font-family: var(--mono);
-  font-size: 14px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(200,200,200,0.45);
-  margin-bottom: 16px;
-}
-.apb-desc {
-  font-size: 17px;
-  line-height: 1.9;
-  color: rgba(240,237,230,0.55);
-  max-width: 400px;
-}
-.apb-video-wrap {
-  position: relative;
-  aspect-ratio: 16/9;
-  overflow: hidden;
-  background: #111;
-}
-.apb-video-wrap video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(0.85) sepia(0.1);
-}
-.apb-video-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 16px;
-  background: #0e0e0e;
-  border: 1px solid rgba(200,200,200,0.1);
-}
-.apb-video-placeholder span {
-  font-family: var(--mono);
-  font-size: 13px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(200,200,200,0.25);
-}
-.apb-video-placeholder .play-icon {
-  width: 48px;
-  height: 48px;
-  border: 1px solid rgba(200,200,200,0.2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.apb-video-placeholder .play-icon::after {
-  content: '';
-  border-style: solid;
-  border-width: 6px 0 6px 10px;
-  border-color: transparent transparent transparent rgba(200,200,200,0.35);
-  margin-left: 3px;
 }
 
 /* ─── CLIENT WORK ────────────────────────────────────────────── */
@@ -2870,12 +2827,11 @@ section {
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
   }
-  .current-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .current-grid, .case-summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .current-card { min-height: 360px; }
   .szg-header { flex-direction: column; }
   .szg-seasons { grid-template-columns: 1fr 1fr; }
   .ps-works { grid-template-columns: 1fr; }
-  .apb-inner { grid-template-columns: 1fr; }
   .client-grid { grid-template-columns: 1fr; }
 }
 
@@ -2892,9 +2848,9 @@ section {
   #hero h1 { font-size: 14vw; }
   #about { padding: 80px 24px; }
   .credential-row { grid-template-columns: 1fr; gap: 8px; }
-  #current-projects, #szg, #mael, #pathseven, #apb, #client-work, #personal-projects, #additional { padding: 80px 24px; }
-  .current-grid { grid-template-columns: 1fr; gap: 8px; }
-  .current-card { min-height: auto; padding: 22px 20px; }
+  #current-projects, #szg, #mael, #pathseven, #client-work, #personal-projects, #additional { padding: 80px 24px; }
+  .current-grid, .case-summary-grid { grid-template-columns: 1fr; gap: 8px; }
+  .current-card, .current-card.is-wide { grid-column: auto; min-height: auto; padding: 22px 20px; }
   .current-meta { min-height: 0; }
   #contact { padding: 60px 24px; }
   .szg-seasons { grid-template-columns: 1fr; }
@@ -3215,76 +3171,73 @@ section {
       <article class="current-card">
         <div class="current-status">2026–Present · 미발매 / 진행 중</div>
         <h3 class="current-name">Divers</h3>
-        <div class="current-meta">한국 독립 아티스트 · Album / IP Development</div>
+        <div class="current-meta">Role · Creative Producer / Artist IP Planner</div>
         <p class="current-desc">
-          미발매 앨범 프로젝트의 아티스트 방향성, 장기 IP 서사, 앨범 컨셉, 콘텐츠 전략을 함께 설계하고 있습니다.
+          한국 독립 아티스트의 미발매 앨범 프로젝트. 단일 발매가 아니라 장기적으로 확장 가능한 아티스트 IP 구조를 함께 설계하고 있습니다.
         </p>
-        <ul class="current-scope">
-          <li>앨범 컨셉 기획</li>
-          <li>아티스트 IP 장기 서사</li>
-          <li>MV · 비주얼라이저 방향성</li>
-          <li>IP 비즈니스 확장 가능성 검토</li>
-        </ul>
+        <div class="case-fields">
+          <div class="case-field"><b>Project Context</b><span>앨범 방향성, 아티스트 브랜딩, IP 장기 서사를 초기 단계부터 정리해야 하는 프로젝트.</span></div>
+          <div class="case-field"><b>What I Did</b><span>앨범 컨셉 기획, 아티스트 IP 서사 설계, 콘텐츠 방향성, MV·비주얼라이저 레퍼런스 정리.</span></div>
+          <div class="case-field"><b>Deliverables</b><span>앨범 비주얼 방향, 콘텐츠 기획안, MV·비주얼라이저 제작 방향, IP business 확장 아이디어.</span></div>
+          <div class="case-field"><b>Current Status</b><span>미발매 / 제작 준비 및 콘셉트 개발 진행 중.</span></div>
+        </div>
       </article>
 
       <article class="current-card">
         <div class="current-status">2026–Present · 미발매 / 진행 중</div>
         <h3 class="current-name">MMHA</h3>
-        <div class="current-meta">Make Me Happy Again · Interactive IP</div>
+        <div class="current-meta">Role · Creative Producer / Interactive IP Planner</div>
         <p class="current-desc">
-          앨범 컨셉과 브랜딩을 기반으로 MV, 비주얼라이저, 리스닝 기반 인터랙티브 게임까지 연결하는 IP 구조를 기획 중입니다.
+          Make Me Happy Again의 앨범 컨셉과 브랜딩을 기반으로, 음악 감상을 인터랙티브 경험까지 확장하는 프로젝트를 기획 중입니다.
         </p>
-        <ul class="current-scope">
-          <li>앨범 컨셉 · 브랜딩</li>
-          <li>MV · 비주얼라이저 기획</li>
-          <li>인터랙티브 리스닝 게임</li>
-          <li>아티스트 IP 세계관 구축</li>
-        </ul>
+        <div class="case-fields">
+          <div class="case-field"><b>Project Context</b><span>앨범 컨셉, 아티스트 브랜딩, 발매 비주얼, 팬 경험을 하나의 IP로 연결해야 하는 프로젝트.</span></div>
+          <div class="case-field"><b>What I Did</b><span>앨범 콘셉트 기획, 브랜드 무드 정리, MV·비주얼라이저 방향성, 인터랙티브 리스닝 게임 구조 기획.</span></div>
+          <div class="case-field"><b>Deliverables</b><span>브랜딩 방향, 발매 비주얼 레퍼런스, MV·비주얼라이저 기획, 인터랙티브 게임 빌드 방향.</span></div>
+          <div class="case-field"><b>Current Status</b><span>미발매 / 앨범 콘셉트 및 IP 경험 설계 진행 중.</span></div>
+        </div>
       </article>
 
       <article class="current-card">
         <div class="current-status">Artist Project · R&amp;B</div>
         <h3 class="current-name">mael</h3>
-        <div class="current-meta">Creative Direction · Visual Production</div>
+        <div class="current-meta">Role · Creative Producer / Visual Production</div>
         <p class="current-desc">
-          데뷔 싱글부터 후속 발매까지 아티스트 세계관, 웹사이트, Pre-save, 비주얼라이저, 발매 콘텐츠를 연결했습니다.
+          신인 R&amp;B 아티스트의 발매 프로젝트에서 음악적 무드, 아티스트 세계관, 발매 콘텐츠를 하나의 비주얼 시스템으로 연결했습니다.
         </p>
-        <ul class="current-scope">
-          <li>싱글 컨셉 · 비주얼 무드</li>
-          <li>공식 웹사이트 · Pre-save</li>
-          <li>Planting Seed IP 전략</li>
-          <li>발매 콘텐츠 방향성</li>
-        </ul>
+        <div class="case-fields">
+          <div class="case-field"><b>What I Did</b><span>앨범/싱글 컨셉 정리, 레퍼런스 리서치, 웹·Pre-save, 비주얼라이저, 발매 콘텐츠 방향성.</span></div>
+          <div class="case-field"><b>Deliverables</b><span>Cover visual, official website, Pre-save page, release visuals, Planting Seed IP strategy.</span></div>
+          <div class="case-field"><b>Result</b><span>발매 콘텐츠 시스템 구축 및 후속 발매에 활용 가능한 아티스트 비주얼 톤 정리.</span></div>
+        </div>
       </article>
 
       <article class="current-card">
         <div class="current-status">Artist Project · Alternative Soul</div>
         <h3 class="current-name">Path Seven</h3>
-        <div class="current-meta">Album Visuals · MV · Visualizer</div>
+        <div class="current-meta">Role · Visual Production / Release Assets</div>
         <p class="current-desc">
-          앨범 비주얼, MV, 비주얼라이저, 리브랜딩 메시지를 발매별 콘텐츠 톤으로 정리했습니다.
+          Alternative Soul 아티스트의 앨범/싱글 발매에 맞춰 비주얼라이저, MV, 리브랜딩 메시지, SNS 프로모션 자산을 제작했습니다.
         </p>
-        <ul class="current-scope">
-          <li>앨범 커버 · 비주얼라이저</li>
-          <li>MV 프로덕션 코디네이션</li>
-          <li>리브랜딩 메시지</li>
-          <li>SNS 프로모션 비주얼</li>
-        </ul>
+        <div class="case-fields">
+          <div class="case-field"><b>What I Did</b><span>Nice 2 Kno U, Cheap Labour, iSurrender 발매별 비주얼 방향, MV 프로덕션 코디네이션, MD 메시지 확장.</span></div>
+          <div class="case-field"><b>Deliverables</b><span>Album cover, visualizer, MV production support, behind tape, promotional visuals, IMIM brand message.</span></div>
+          <div class="case-field"><b>Result</b><span>발매별 콘텐츠 톤을 정리하고 아티스트 리브랜딩 문구와 비주얼 자산으로 확장.</span></div>
+        </div>
       </article>
 
-      <article class="current-card">
+      <article class="current-card is-wide">
         <div class="current-status">Creative Collective · 2024–Present</div>
         <h3 class="current-name">SZG</h3>
-        <div class="current-meta">Artist Curation · Event Promotion</div>
+        <div class="current-meta">Role · Founder / Project Operator / Cultural Producer</div>
         <p class="current-desc">
-          토론토 기반 크리에이티브 콜렉티브를 운영하며 신진 아티스트 발굴, 이벤트 프로모션, 커뮤니티 접점을 만들었습니다.
+          토론토 기반 크리에이티브 콜렉티브를 운영하며 신진 아티스트 발굴, 전시·공연 기획, 프로모션, 파트너 커뮤니케이션, 현장 운영을 총괄했습니다.
         </p>
-        <ul class="current-scope">
-          <li>10회 이상 전시 · 이벤트</li>
-          <li>60명+ 참여 아티스트 조율</li>
-          <li>1,000명+ 누적 관객</li>
-          <li>공모 · 포스터 · 릴스 운영</li>
-        </ul>
+        <div class="case-fields">
+          <div class="case-field"><b>Project Context</b><span>신진 아티스트와 관객이 만나는 독립 문화 플랫폼을 직접 만들고 지속 운영.</span></div>
+          <div class="case-field"><b>What I Did</b><span>아티스트 큐레이션, 베뉴/파트너 커뮤니케이션, 예산·티켓 운영, 공모/포스터/릴스, 행사 현장 운영.</span></div>
+          <div class="case-field"><b>Result</b><span>10회 이상 전시·이벤트, 60명+ 참여 아티스트, 1,000명+ 누적 관객.</span></div>
+        </div>
       </article>
     </div>
   </div>
@@ -3344,6 +3297,13 @@ section {
         <span class="szg-stat-number">1K+</span>
         <span class="szg-stat-label">관객</span>
       </div>
+    </div>
+
+    <div class="case-summary-grid section-fade">
+      <div class="case-summary-card"><b>Role</b><span>Founder / Project Operator / Cultural Producer</span></div>
+      <div class="case-summary-card"><b>Project Context</b><span>토론토 내 신진 아티스트가 전시, 라이브셋, 상영회, 팝업을 통해 관객과 만나는 독립 플랫폼 운영.</span></div>
+      <div class="case-summary-card"><b>What I Did</b><span>아티스트 큐레이션, 파트너 커뮤니케이션, 예산·티켓 운영, 콘텐츠 공모, 포스터/릴스 홍보, 현장 운영.</span></div>
+      <div class="case-summary-card"><b>Result</b><span>10회 이상 이벤트, 60명+ 참여 아티스트, 1,000명+ 누적 관객, 일부 시즌 BEP 초과 달성.</span></div>
     </div>
 
     <!-- Case study seasons -->
@@ -3546,6 +3506,13 @@ section {
       '취약함(Vulnerability)'과 '성장'을 핵심 키워드로 설정하고, Dreamcore 미학과 자연의 서사를 결합한 아티스트 세계관을 구축했습니다.
     </p>
 
+    <div class="case-summary-grid section-fade">
+      <div class="case-summary-card"><b>Role</b><span>Creative Producer / Visual Production / Album Branding / Release Content Planning</span></div>
+      <div class="case-summary-card"><b>Project Context</b><span>신인 R&amp;B 아티스트의 발매 프로젝트에서 음악적 무드와 아티스트 이미지를 시각적으로 정리해야 했습니다.</span></div>
+      <div class="case-summary-card"><b>What I Did</b><span>앨범 컨셉 정리, 레퍼런스 리서치, 비주얼 방향성, 웹·Pre-save, 비주얼라이저, 발매 콘텐츠 기획.</span></div>
+      <div class="case-summary-card"><b>Result</b><span>발매 콘텐츠 시스템 구축, 아티스트 비주얼 아이덴티티 정리, 후속 발매에 활용 가능한 방향성 확보.</span></div>
+    </div>
+
     <!-- 3 releases -->
     <div class="mael-releases section-fade">
       <div class="release-card">
@@ -3722,6 +3689,13 @@ section {
     </h2>
     <h3 class="ps-title section-fade">[Path∗Seven]</h3>
 
+    <div class="case-summary-grid section-fade">
+      <div class="case-summary-card"><b>Role</b><span>Visual Production / MV Coordination / Release Asset Direction</span></div>
+      <div class="case-summary-card"><b>Project Context</b><span>Alternative Soul 아티스트의 발매별 비주얼 톤과 리브랜딩 메시지를 정리해야 했습니다.</span></div>
+      <div class="case-summary-card"><b>What I Did</b><span>Nice 2 Kno U, Cheap Labour, iSurrender의 커버·비주얼라이저·MV 제작 흐름과 SNS 자산을 관리.</span></div>
+      <div class="case-summary-card"><b>Deliverables</b><span>앨범 커버, 비주얼라이저, MV 프로덕션 지원, 비하인드 테이프, IMIM 캐치프레이즈/MD 방향.</span></div>
+    </div>
+
     <div class="ps-works section-fade">
       <div class="ps-work-item">
         <div class="ps-work-img">
@@ -3773,44 +3747,6 @@ section {
       <span class="tag rust">#MVProduction</span>
       <span class="tag rust">#VisualDirection</span>
       <span class="tag rust">#MD</span>
-    </div>
-
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- ARTIST: APB                                                -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<section id="apb">
-  <div class="apb-inner section-fade">
-
-    <div class="apb-left">
-      <h2 class="artist-opener-title section-fade">
-        <span class="ao-num">02-3 — 아티스트 프로젝트</span>
-        Artist<br>Project
-      </h2>
-      <h3 class="apb-title">[APB]</h3>
-      <p class="apb-role">비주얼 디렉션</p>
-      <p class="apb-desc">라이브 공연 환경에 맞춘 콘서트 비주얼라이저를 디렉팅하고, 무대의 에너지와 트랙의 흐름이 연결되도록 비주얼 톤을 설계했습니다.</p>
-      <div class="tag-list" style="margin-top:24px;">
-        <span class="tag grey">#VisualDirection</span>
-        <span class="tag grey">#Concert</span>
-      </div>
-    </div>
-
-    <div class="apb-right">
-      <div class="apb-video-wrap">
-        <video
-          src="assets/video/apb_loop.mp4"
-          autoplay muted loop playsinline
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-        </video>
-        <div class="apb-video-placeholder" style="display:none;">
-          <div class="play-icon"></div>
-          <span>apb_loop.mp4</span>
-          <span style="opacity:0.4;">assets/video/ 폴더에 영상 넣어주세요</span>
-        </div>
-      </div>
     </div>
 
   </div>
@@ -4760,7 +4696,7 @@ qsa('.szg-grid-item, .release-card, .client-card, .ps-work-item').forEach(el => 
 // (Intersection/ScrollTrigger adds .in-view). A separate GSAP opacity
 // tween here conflicted with that and left titles stuck at opacity 0,
 // so title reveal is intentionally handled by .section-fade only.
-qsa('.szg-title, .apb-title').forEach(el => {
+qsa('.szg-title').forEach(el => {
   if (!el.classList.contains('section-fade')) {
     el.classList.add('section-fade');
     ScrollTrigger.create({
